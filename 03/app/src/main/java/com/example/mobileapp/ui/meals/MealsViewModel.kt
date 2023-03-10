@@ -1,13 +1,14 @@
-package com.example.mobileapp.ui.notifications
+package com.example.mobileapp.ui.meals
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class MealsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is meals Fragment"
     }
     val text: LiveData<String> = _text
+
 }
