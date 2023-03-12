@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Mobile App</string>
+    <string name="app_name">Mobiilirakendus</string>
+    <string name="hello_world">Teretere</string>
 </resources>
