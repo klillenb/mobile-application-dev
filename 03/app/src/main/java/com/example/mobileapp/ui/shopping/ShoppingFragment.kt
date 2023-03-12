@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.mobileapp.databinding.FragmentHomeBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentShoppingBinding
-import com.example.mobileapp.ui.recipes.RecipesViewModel
 
 class ShoppingFragment : Fragment() {
 
@@ -19,21 +17,36 @@ class ShoppingFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    class ShoppingData(val items: ArrayList<String>, val checked: ArrayList<Int>)
+    private val dataset: ShoppingData = ShoppingData(
+        ArrayList(),
+        ArrayList()
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(ShoppingViewModel::class.java)
+        /* val homeViewModel =
+            ViewModelProvider(this)[ShoppingViewModel::class.java]
+        */
 
         _binding = FragmentShoppingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textShopping
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val recyclerView: RecyclerView = binding.recyclerView
+        binding.completeAllButton.setOnClickListener {
+            dataset.checked.clear()
+            for (i in 0..dataset.items.size) {
+                dataset.checked.add(i)
+            }
         }
+        recyclerView.adapter = CartItemViewAdapter(
+            dataset
+        )
+        // vist pole õige
+        recyclerView.layoutManager = LinearLayoutManager(this.activity)
         return root
     }
 
