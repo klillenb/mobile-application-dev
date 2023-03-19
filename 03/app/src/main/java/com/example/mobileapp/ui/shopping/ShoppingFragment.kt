@@ -17,36 +17,36 @@ class ShoppingFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    class ShoppingData(val items: ArrayList<String>, val checked: ArrayList<Int>)
-    private val dataset: ShoppingData = ShoppingData(
-        ArrayList(),
-        ArrayList()
-    )
+    private lateinit var shoppingCartItemViewAdapter: ShoppingCartItemViewAdapter
+    private lateinit var items: MutableList<ShoppingCartItem>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        /* val homeViewModel =
-            ViewModelProvider(this)[ShoppingViewModel::class.java]
-        */
-
         _binding = FragmentShoppingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val recyclerView: RecyclerView = binding.recyclerView
-        binding.completeAllButton.setOnClickListener {
-            dataset.checked.clear()
-            for (i in 0..dataset.items.size) {
-                dataset.checked.add(i)
-            }
+        items = mutableListOf()
+
+        for (i in 0..25) {
+            items.add(ShoppingCartItem("Hello world #"))
         }
-        recyclerView.adapter = CartItemViewAdapter(
-            dataset
-        )
-        // vist pole õige
-        recyclerView.layoutManager = LinearLayoutManager(this.activity)
+
+        shoppingCartItemViewAdapter = ShoppingCartItemViewAdapter(items)
+        val recyclerView: RecyclerView = binding.recyclerViewShopping
+        recyclerView.adapter = shoppingCartItemViewAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        binding.buttonShoppingComplete.setOnClickListener {
+            shoppingCartItemViewAdapter.completeAllItems()
+        }
+
+        binding.buttonShoppingDelete.setOnClickListener {
+            shoppingCartItemViewAdapter.deleteDoneItems()
+        }
+
         return root
     }
 
