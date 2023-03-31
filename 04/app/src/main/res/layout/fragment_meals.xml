@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MealsActivity">
 
     <Button
         android:id="@+id/button_take_pic"
@@ -12,7 +13,7 @@
         android:text="Take a pic"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="80dp" />
 
     <ImageView
         android:id="@+id/imageView_pic"
