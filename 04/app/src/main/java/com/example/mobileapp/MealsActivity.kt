@@ -30,8 +30,9 @@ class MealsActivity : AppCompatActivity() {
     lateinit var captureRequest: CaptureRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getPermissions()
         super.onCreate(savedInstanceState)
+        getPermissions()
+        setContentView(R.layout.fragment_meals)
 
         // Camera start
         textureView = findViewById(R.id.textureView)
@@ -62,7 +63,7 @@ class MealsActivity : AppCompatActivity() {
             }
 
             override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                TODO("Not yet implemented")
+
             }
 
         }
