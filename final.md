@@ -1,7 +1,7 @@
 ## MVP
 ## 1. Home Fragment - Taavi K
 * Favourite Recipes
-* Buttons - All recipes, Add recipe
+* Inspirational quote about healthy eating (either API or hardcoded)
 ## 3. Recipes (All recipes) - Martin
 * All recipe list, prepopulate with 3-4 example recipes
 ## 4. Recipes (Add recipes) - Kairi
