@@ -1,7 +1,7 @@
 package com.example.mobileapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mobileapp.databinding.ActivityGalleryBinding
 import java.io.File
 

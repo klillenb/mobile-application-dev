@@ -19,9 +19,6 @@
             android:name=".GalleryActivity"
             android:exported="false" />
         <activity
-            android:name=".MealsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

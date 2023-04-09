@@ -1,15 +1,12 @@
 package com.example.mobileapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobileapp.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -34,11 +31,5 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        var mealsBtn = findViewById<BottomNavigationItemView>(R.id.navigation_meals)
-        mealsBtn.setOnClickListener{
-            val intent = Intent(this, MealsActivity::class.java)
-            startActivity(intent)
-        }
     }
 }
