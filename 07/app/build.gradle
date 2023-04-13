@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
     namespace 'com.example.mobileapp'
     compileSdk 33
@@ -13,6 +17,8 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "API_KEY", localProperties['NINJA_KEY']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation "com.squareup.retrofit2:retrofit:2.9.0" // for API requests
+    implementation "com.squareup.retrofit2:converter-scalars:2.9.0" // return JSON results as String
     implementation 'androidx.camera:camera-camera2:1.2.2'
     implementation 'androidx.camera:camera-lifecycle:1.2.2'
     // Glide library for image management and loading
