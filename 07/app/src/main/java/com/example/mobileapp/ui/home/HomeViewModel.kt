@@ -26,7 +26,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val result = NinjaApi.retrofitService.getQuote(getHeaderMap())
-                _status.value = result
+                _status.value = result.toString()
                 println(result)
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
@@ -36,7 +36,7 @@ class HomeViewModel : ViewModel() {
 
     private fun getHeaderMap(): Map<String, String> {
         val headerMap = mutableMapOf<String, String>()
-        headerMap["X-Api-Key"] = "${NinjaApi.apiKey}"
+        headerMap["X-Api-Key"] = NinjaApi.apiKey
         return headerMap
     }
 }
