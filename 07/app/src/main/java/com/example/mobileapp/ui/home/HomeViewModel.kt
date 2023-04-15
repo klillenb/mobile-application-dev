@@ -9,7 +9,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    private val _status = MutableLiveData<String>()
+    private val _quote = MutableLiveData<String>()
+    private val _author = MutableLiveData<String>()
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -20,16 +21,19 @@ class HomeViewModel : ViewModel() {
     }
 
     val text: LiveData<String> = _text
-    val status: LiveData<String> = _status
+    val quote: LiveData<String> = _quote
+    val author: LiveData<String> = _author
 
     private fun getFoodQuote() {
         viewModelScope.launch {
             try {
                 val result = NinjaApi.retrofitService.getQuote(getHeaderMap())
-                _status.value = result.toString()
-                println(result)
+                _quote.value = result[0].quote
+                _author.value = result[0].author
+                println(quote.value)
+                println(author.value)
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _quote.value = "Failure: ${e.message}"
             }
         }
     }
