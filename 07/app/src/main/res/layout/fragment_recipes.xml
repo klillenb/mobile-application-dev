@@ -4,38 +4,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/food_calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_name"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/food_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_calories"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/food_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_size"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/food_protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_fat"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/food_sugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_protein"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/food_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/text_recipes"
+        android:layout_height="65dp"
+        android:layout_above="@id/bt_button"
         android:layout_centerInParent="true"
-        android:hint="Write recipe to cook"
+        android:hint="Write a food item to find nutrition"
         android:textSize="16sp"
         android:textStyle="italic" />
-
-    <TextView
-        android:id="@+id/text_recipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="20sp"
-        android:text="Recipe" />
 
     <Button
         android:id="@+id/bt_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_recipes"
         android:layout_centerInParent="true"
-        android:text="Save" />
-
-    <Switch
-        android:id="@+id/sw_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bt_button"
-        android:layout_centerInParent="true"
-        android:text="switch"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        android:text="Search" />
 </RelativeLayout>

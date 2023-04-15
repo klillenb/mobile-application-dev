@@ -1,13 +1,15 @@
 package com.example.mobileapp.network
 
 import com.example.mobileapp.BuildConfig
-import com.squareup.moshi.JsonAdapter
+import com.example.mobileapp.dto.FoodQuote
+import com.example.mobileapp.dto.NutritionValue
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.HeaderMap
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.api-ninjas.com/v1/"
 
@@ -32,4 +34,10 @@ interface NinjaApiService {
     suspend fun getQuote(
         @HeaderMap headers: Map<String, String>
     ): List<FoodQuote>
+
+    @GET("nutrition")
+    suspend fun getNutrition(
+        @HeaderMap headers: Map<String, String>,
+        @Query("query") foodItem: String
+    ): List<NutritionValue>
 }
