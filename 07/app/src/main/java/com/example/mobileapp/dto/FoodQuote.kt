@@ -1,4 +1,4 @@
-package com.example.mobileapp.network
+package com.example.mobileapp.dto
 
 data class FoodQuote (
     val quote: String,
