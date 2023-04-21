@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">mobileapp</string>
+    <string name="title_home">Home</string>
+    <string name="title_recipes">Recipes</string>
+    <string name="title_meals">Meals and kcal</string>
+    <string name="title_shopping">Shopping Cart</string>
+    <string name="shopping_delete_button">Delete done</string>
+    <string name="shopping_complete_button">Complete all</string>
+    <string name="delete_button_desc">Delete</string>
+</resources>
