@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentHomeBinding
 import com.example.mobileapp.databinding.FragmentRecipesBinding
 
@@ -24,14 +25,14 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(RecipesViewModel::class.java)
+            ViewModelProvider(this)[RecipesViewModel::class.java]
 
         _binding = FragmentRecipesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textRecipes
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val recyclerView: RecyclerView = binding.recyclerViewRecipes
+        homeViewModel.liveData.observe(viewLifecycleOwner) {
+            //textView.text = it
         }
         return root
     }
