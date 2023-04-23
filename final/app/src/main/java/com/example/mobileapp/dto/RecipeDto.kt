@@ -1,8 +1,8 @@
-package com.example.mobileapp.repository
+package com.example.mobileapp.dto
 
-data class Recipe(
+data class RecipeDto(
     val name: String,
-    val ingredients: List<Ingredient>? = null,
+    val ingredients: List<IngredientDto>? = null,
     val instructions: String? = null,
     val username: String? = null,
     val description: String? = null,

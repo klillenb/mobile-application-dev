@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentRecipesBinding
-import com.example.mobileapp.repository.Recipe
+import com.example.mobileapp.dto.RecipeDto
 
 class RecipesFragment : Fragment() {
 
@@ -50,11 +50,11 @@ class RecipesFragment : Fragment() {
 
         recyclerView.adapter = recipeAdapter
 
-        val recipeObserver = Observer<List<Recipe>>{ recipes ->
+        val recipeDtoObserver = Observer<List<RecipeDto>>{ recipes ->
             //forecastItem update our list adapter
             recipeAdapter.submitList(recipes)
         }
-        homeViewModel.liveData.observe(this, recipeObserver)
+        homeViewModel.liveData.observe(this, recipeDtoObserver)
 
         return root
     }
