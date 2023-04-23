@@ -19,20 +19,17 @@ class RecipeViewHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     private val name : TextView = view.findViewById(R.id.name_recipe_list_item)
+    private val ingredients : TextView = view.findViewById(R.id.ingredients_recipe_list_item)
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
     private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
 
     fun bind(recipeDto: RecipeDto){
-
         name.text = recipeDto.name
-        description.text = recipeDto.description?.substring(0, 120).plus(ellipsis)
-        //kui on pikem kui 100, siis lõppu kolm täppi
-        //string.dropLast(50)
+        description.text = recipeDto.description
+        ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
         picture.setImageResource(R.mipmap.ic_launcher)
 
-        //s.length
-        //picture.setImageDrawable(recipe.picture)
     }
 }
 

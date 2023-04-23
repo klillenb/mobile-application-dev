@@ -37,9 +37,9 @@ class RecipesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         homeViewModel.getData()
-        homeViewModel.liveData.observe(viewLifecycleOwner) {
-            //textView.text = it
-        }
+        // homeViewModel.recipeList.observe(viewLifecycleOwner) {
+            // textView.text = it
+        // }
 
         val recipeAdapter = RecipeAdapter(){recipe ->
             //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
@@ -54,7 +54,7 @@ class RecipesFragment : Fragment() {
             //forecastItem update our list adapter
             recipeAdapter.submitList(recipes)
         }
-        homeViewModel.liveData.observe(this, recipeDtoObserver)
+        homeViewModel.recipeList.observe(this, recipeDtoObserver)
 
         return root
     }
