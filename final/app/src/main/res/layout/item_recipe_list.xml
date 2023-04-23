@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="25dp"
     android:clickable="true">
 
     <TextView
@@ -18,38 +20,6 @@
         app:layout_constraintVertical_bias="0.0"
         tools:text="Title" />
 
-    <TextView
-        android:id="@+id/description_recipe_list_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_recipe_list_item"
-        tools:text="Description" />
-
-    <TextView
-        android:id="@+id/instructions_recipe_list_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_recipe_list_item"
-        tools:text="Instructions" />
-
-    <TextView
-        android:id="@+id/ingredients_recipe_list_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/star_recipe_list_item"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/instructions_recipe_list_item"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="Ingredients" />
-
     <ImageView
         android:id="@+id/star_recipe_list_item"
         android:layout_width="wrap_content"
@@ -59,7 +29,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/name_recipe_list_item"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/name_recipe_list_item"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/baseline_star_border_24" />
+
+    <TextView
+        android:id="@+id/description_recipe_list_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toStartOf="@+id/picture_recipe_list_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_recipe_list_item"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.." />
+
+    <ImageView
+        android:id="@+id/picture_recipe_list_item"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/picture_item_recipe_list"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="@id/description_recipe_list_item"
+        app:layout_constraintTop_toTopOf="@id/description_recipe_list_item"
+
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

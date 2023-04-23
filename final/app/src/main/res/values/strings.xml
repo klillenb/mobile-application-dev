@@ -8,4 +8,5 @@
     <string name="shopping_complete_button">Complete all</string>
     <string name="delete_button_desc">Delete</string>
     <string name="starred_item_recipe_list">Starred</string>
+    <string name="picture_item_recipe_list">Recipe image</string>
 </resources>

@@ -4,13 +4,14 @@ package com.example.mobileapp.ui.recipes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.R
 import com.example.mobileapp.repository.Recipe
-
+import kotlin.text.Typography.ellipsis
 
 
 class RecipeViewHolder(
@@ -19,10 +20,19 @@ class RecipeViewHolder(
 
     private val name : TextView = view.findViewById(R.id.name_recipe_list_item)
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
+    private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
 
     fun bind(recipe: Recipe){
+
         name.text = recipe.name
-        description.text = recipe.description
+        description.text = recipe.description?.substring(0, 120).plus(ellipsis)
+        //kui on pikem kui 100, siis lõppu kolm täppi
+        //string.dropLast(50)
+
+        picture.setImageResource(R.mipmap.ic_launcher)
+
+        //s.length
+        //picture.setImageDrawable(recipe.picture)
     }
 }
 

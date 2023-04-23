@@ -9,14 +9,8 @@ class RecipeRepository {
     private val _recipes = MutableLiveData<List<Recipe>>()
     val recipes: LiveData<List<Recipe>> = _recipes
     fun loadRecipes(){
-/*        var recipe1 = Recipe()
-        recipe1.name = "Retsept1"
-        recipe1.description = "Retsepti kirjeldus"
-        var recipe2 = Recipe()
-        recipe2.name = "Retsept2"
-        recipe2.description = "Retsepti kirjeldus"*/
 
-        val recipeList = List(2){_ -> Recipe(name="Recipe1", description = "Description1")}
+        val recipeList = List(10){i -> Recipe(name="Recipe${i+1}", description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}
         _recipes.value = recipeList
     }
 
