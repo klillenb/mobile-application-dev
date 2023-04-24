@@ -10,8 +10,6 @@
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -45,103 +43,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        tools:layout_editor_absoluteX="10dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
-
-            <ProgressBar
-                android:id="@+id/calorie_progress"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:indeterminateOnly="false"
-                android:max="2400"
-                android:progress="500"
-                android:progressDrawable="@drawable/calorie_progress"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/calorie_progress_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2400 kcal"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="25dp"
-                app:layout_constraintBottom_toBottomOf="@+id/calorie_progress"
-                app:layout_constraintEnd_toEndOf="@+id/calorie_progress"
-                app:layout_constraintStart_toStartOf="@+id/calorie_progress"
-                app:layout_constraintTop_toTopOf="@+id/calorie_progress" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/carbsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:text="Carbs: 150g"
-                android:textColor="#d2666e"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                tools:ignore="DuplicateIds" />
-
-            <TextView
-                android:id="@+id/fats_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:text="Fats: 150g"
-                android:textColor="#0b9900"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                tools:ignore="DuplicateIds" />
-
-            <TextView
-                android:id="@+id/proteins_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:text="Protein: 150g"
-                android:textColor="#4d53ff"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                tools:ignore="DuplicateIds" />
-        </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -154,7 +55,6 @@
             android:textSize="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
             tools:ignore="NotSibling" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -287,18 +187,29 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/text_home"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="207dp"
+        android:layout_marginVertical="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" >
+
+        <TextView
+            android:id="@+id/quote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/quote"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

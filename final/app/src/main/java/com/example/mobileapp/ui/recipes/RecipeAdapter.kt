@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.R
-import com.example.mobileapp.repository.Recipe
+import com.example.mobileapp.dto.RecipeDto
 import kotlin.text.Typography.ellipsis
 
 
@@ -19,37 +19,34 @@ class RecipeViewHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     private val name : TextView = view.findViewById(R.id.name_recipe_list_item)
+    private val ingredients : TextView = view.findViewById(R.id.ingredients_recipe_list_item)
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
     private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
 
-    fun bind(recipe: Recipe){
-
-        name.text = recipe.name
-        description.text = recipe.description?.substring(0, 120).plus(ellipsis)
-        //kui on pikem kui 100, siis lõppu kolm täppi
-        //string.dropLast(50)
+    fun bind(recipeDto: RecipeDto){
+        name.text = recipeDto.name
+        description.text = recipeDto.description
+        ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
         picture.setImageResource(R.mipmap.ic_launcher)
 
-        //s.length
-        //picture.setImageDrawable(recipe.picture)
     }
 }
 
 
 class RecipeAdapter(
-    private val clickHandler: (Recipe) -> Unit
-) : ListAdapter<Recipe, RecipeViewHolder>(DIFF_CONFIG) {
+    private val clickHandler: (RecipeDto) -> Unit
+) : ListAdapter<RecipeDto, RecipeViewHolder>(DIFF_CONFIG) {
 
     companion object{
-        val DIFF_CONFIG = object : DiffUtil.ItemCallback<Recipe>(){
-            override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+        val DIFF_CONFIG = object : DiffUtil.ItemCallback<RecipeDto>(){
+            override fun areItemsTheSame(oldItem: RecipeDto, newItem: RecipeDto): Boolean {
                 return oldItem === newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: Recipe,
-                newItem: Recipe
+                oldItem: RecipeDto,
+                newItem: RecipeDto
             ): Boolean {
                 return oldItem == newItem
             }

@@ -3,11 +3,33 @@ package com.example.mobileapp.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.mobileapp.dto.FoodQuoteDto
+import com.example.mobileapp.network.NinjaApi
+import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
+    private val _quote = MutableLiveData<FoodQuoteDto>()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    val quote: LiveData<FoodQuoteDto> = _quote
+
+    init {
+        getFoodQuote()
     }
-    val text: LiveData<String> = _text
+    private fun getFoodQuote() {
+        viewModelScope.launch {
+            try {
+                val result = NinjaApi.retrofitService.getQuote(getHeaderMap())
+                _quote.value = result[0]
+            } catch (e: Exception) {
+                println(e)
+            }
+        }
+    }
+
+    private fun getHeaderMap(): Map<String, String> {
+        val headerMap = mutableMapOf<String, String>()
+        headerMap["X-Api-Key"] = NinjaApi.apiKey
+        return headerMap
+    }
 }

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentRecipesBinding
-import com.example.mobileapp.repository.Recipe
+import com.example.mobileapp.dto.RecipeDto
 
 class RecipesFragment : Fragment() {
 
@@ -37,9 +37,9 @@ class RecipesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         homeViewModel.getData()
-        homeViewModel.liveData.observe(viewLifecycleOwner) {
-            //textView.text = it
-        }
+        // homeViewModel.recipeList.observe(viewLifecycleOwner) {
+            // textView.text = it
+        // }
 
         val recipeAdapter = RecipeAdapter(){recipe ->
             //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
@@ -50,11 +50,11 @@ class RecipesFragment : Fragment() {
 
         recyclerView.adapter = recipeAdapter
 
-        val recipeObserver = Observer<List<Recipe>>{ recipes ->
+        val recipeDtoObserver = Observer<List<RecipeDto>>{ recipes ->
             //forecastItem update our list adapter
             recipeAdapter.submitList(recipes)
         }
-        homeViewModel.liveData.observe(this, recipeObserver)
+        homeViewModel.recipeList.observe(this, recipeDtoObserver)
 
         return root
     }
