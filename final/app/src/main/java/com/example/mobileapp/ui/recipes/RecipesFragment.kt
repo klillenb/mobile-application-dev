@@ -40,25 +40,21 @@ class RecipesFragment : Fragment() {
         val recyclerView: RecyclerView = binding.recyclerViewRecipes
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        //homeViewModel.getData()
-        // homeViewModel.recipeList.observe(viewLifecycleOwner) {
-            // textView.text = it
-        // }
 
         val recipeAdapter = RecipeAdapter(){recipe ->
-            //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
-            Toast.makeText(activity, "tere", Toast.LENGTH_SHORT).show()
-            //showForecastDetails(forecast)
+            Toast.makeText(activity, recipe._id, Toast.LENGTH_SHORT).show()
+            homeViewModel.toggleFave(recipe)
             //TODO sisesta retseptivaade (intentiga?)
         }
 
         recyclerView.adapter = recipeAdapter
 
         val recipeDtoObserver = Observer<List<RecipeDto>>{ recipes ->
-            //forecastItem update our list adapter
             recipeAdapter.submitList(recipes)
+            recipeAdapter.notifyDataSetChanged()
+
         }
-        homeViewModel.recipeList.observe(viewLifecycleOwner, recipeDtoObserver)
+        homeViewModel.recipeList.observe(viewLifecycleOwner, recipeDtoObserver )
 
         return root
     }
