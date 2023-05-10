@@ -27,6 +27,10 @@ class SharedViewModel: ViewModel() {
     //recipes
     private fun getData() { _repository.getRecipes() }
 
+    fun toggleFave(recipe: RecipeDto) {
+        _repository.toggleFave(recipe)
+    }
+
     //quotes
     private fun getFoodQuote() {
         viewModelScope.launch {

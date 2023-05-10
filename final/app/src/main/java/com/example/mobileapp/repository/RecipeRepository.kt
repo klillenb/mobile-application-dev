@@ -1,5 +1,6 @@
 package com.example.mobileapp.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mobileapp.dto.RecipeDto
@@ -11,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
 
 class RecipeRepository : CoroutineScope {
     private val job = Job()
-    private val _recipes = MutableLiveData<List<RecipeDto>>()
+    private val _recipes: MutableLiveData<List<RecipeDto>> = MutableLiveData()
     val recipes: LiveData<List<RecipeDto>> = _recipes
 //    fun loadRecipes(){
 //
@@ -27,10 +28,33 @@ class RecipeRepository : CoroutineScope {
                 val result = withContext(Dispatchers.IO) {
                     RecipeApi.retrofitService.getRecipes()
                 }
+
+
+                //siin tuleks filtreerida: kui lemmikute nimekirjas, siis fave = true
+
+
+
                 _recipes.value = result
             } catch (e: Exception) {
                 println(e)
             }
         }
+    }
+
+    fun toggleFave(recipe: RecipeDto){
+        Log.d("STATUS", "Algne inf repos: ${_recipes.value?.find { it._id == recipe._id}}")
+        _recipes.value?.find { it._id == recipe._id}?.fave = !recipe.fave
+        this._recipes.postValue(_recipes.value)
+        Log.d("STATUS", "Inf pärist vajutust ${recipes.value?.find { it._id == recipe._id}}")
+
+        // kui fave on false siis lisada lemmikutesse
+
+        // kui fave on true siis eemaldada lemmikutest
+
+    }
+
+
+    fun checkFaves() {
+        //lugeda lemmikutest
     }
 }

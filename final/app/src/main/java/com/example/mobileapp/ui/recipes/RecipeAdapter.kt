@@ -1,18 +1,17 @@
 package com.example.mobileapp.ui.recipes
 
-
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.R
 import com.example.mobileapp.dto.RecipeDto
-import kotlin.text.Typography.ellipsis
-
 
 class RecipeViewHolder(
     view: View,
@@ -22,6 +21,7 @@ class RecipeViewHolder(
     private val ingredients : TextView = view.findViewById(R.id.ingredients_recipe_list_item)
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
     private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
+    private val star: ImageView = view.findViewById(R.id.star_recipe_list_item)
 
     fun bind(recipeDto: RecipeDto){
         name.text = recipeDto.name
@@ -29,7 +29,13 @@ class RecipeViewHolder(
         ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
         picture.setImageResource(R.mipmap.ic_launcher)
-
+        //star.setColorFilter(R.color.yellow)
+        if(recipeDto.fave){
+        //if(recipeDto._id == "638f9e3e8f6e745237a80114"){
+            Log.d("STATUS", "Inf jõuab kohale adapterisse: $recipeDto")
+            star.setImageResource(R.drawable.baseline_star_24)
+            star.setColorFilter(ContextCompat.getColor(star.context, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN)
+        }
     }
 }
 
