@@ -18,9 +18,6 @@ import com.example.mobileapp.model.SharedViewModel
 class RecipesFragment : Fragment() {
 
     private var _binding: FragmentRecipesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     //ühised andmed
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -44,15 +41,13 @@ class RecipesFragment : Fragment() {
         val recipeAdapter = RecipeAdapter(){recipe ->
             Toast.makeText(activity, recipe._id, Toast.LENGTH_SHORT).show()
             homeViewModel.toggleFave(recipe)
-            //TODO sisesta retseptivaade (intentiga?)
         }
 
         recyclerView.adapter = recipeAdapter
 
+
         val recipeDtoObserver = Observer<List<RecipeDto>>{ recipes ->
             recipeAdapter.submitList(recipes)
-            recipeAdapter.notifyDataSetChanged()
-
         }
         homeViewModel.recipeList.observe(viewLifecycleOwner, recipeDtoObserver )
 

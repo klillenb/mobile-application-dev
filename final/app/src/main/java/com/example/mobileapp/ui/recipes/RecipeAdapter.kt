@@ -1,6 +1,5 @@
 package com.example.mobileapp.ui.recipes
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,10 +28,7 @@ class RecipeViewHolder(
         ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
         picture.setImageResource(R.mipmap.ic_launcher)
-        //star.setColorFilter(R.color.yellow)
         if(recipeDto.fave){
-        //if(recipeDto._id == "638f9e3e8f6e745237a80114"){
-            Log.d("STATUS", "Inf jõuab kohale adapterisse: $recipeDto")
             star.setImageResource(R.drawable.baseline_star_24)
             star.setColorFilter(ContextCompat.getColor(star.context, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN)
         }
@@ -69,6 +65,7 @@ class RecipeAdapter(
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
             clickHandler(getItem(position))
+            notifyItemChanged(position)
         }
     }
 }
