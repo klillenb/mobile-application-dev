@@ -30,8 +30,8 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     //recipes
     private fun getData() { _repository.getRecipes() }
 
-    fun toggleFave(recipe: RecipeDto) {
-        _repository.toggleFave(recipe)
+    fun toggleFave(pos: Int) {
+        _repository.toggleFave(recipeList.value!![pos])
     }
 
     //quotes

@@ -19,7 +19,7 @@ class RecipesFragment : Fragment() {
 
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
-    //ühised andmed
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -37,11 +37,29 @@ class RecipesFragment : Fragment() {
         val recyclerView: RecyclerView = binding.recyclerViewRecipes
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
+        val recipeAdapter = RecipeAdapter()
 
-        val recipeAdapter = RecipeAdapter(){recipe ->
-            Toast.makeText(activity, recipe._id, Toast.LENGTH_SHORT).show()
-            homeViewModel.toggleFave(recipe)
-        }
+
+        recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
+            override fun onItemClick(view: View, position: Int) {
+                Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
+                homeViewModel.toggleFave(position)
+                recipeAdapter.notifyItemChanged(position)
+            }
+
+            override fun onStarClick(view: View, position: Int) {
+                Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
+                homeViewModel.toggleFave(position)
+                recipeAdapter.notifyItemChanged(position)
+            }
+
+            override fun onPictureClick(view: View, position: Int) {
+                Toast.makeText(activity, "klikkisid pildile", Toast.LENGTH_SHORT).show()
+                homeViewModel.toggleFave(position)
+                recipeAdapter.notifyItemChanged(position)
+            }
+
+        })
 
         recyclerView.adapter = recipeAdapter
 
