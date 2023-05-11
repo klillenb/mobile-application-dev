@@ -7,7 +7,7 @@ import androidx.lifecycle.*
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.repository.RecipeRepository
 import com.example.mobileapp.dto.FoodQuoteDto
-import com.example.mobileapp.network.NinjaApi
+import com.example.mobileapp.network.RecipeApi
 import kotlinx.coroutines.launch
 
 //https://developer.android.com/codelabs/basic-android-kotlin-training-shared-viewmodel#3
@@ -31,29 +31,22 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     private fun getData() { _repository.getRecipes() }
 
     fun toggleFave(pos: Int) {
-        _repository.toggleFave(recipeList.value!![pos])
+        _repository.toggleFave(recipeList.value !! [pos])
     }
 
     fun toggleAddToCart(pos: Int) {
-        _repository.toggleAddToCart(recipeList.value!![pos])
+        _repository.toggleAddToCart(recipeList.value !! [pos])
     }
 
     //quotes
     private fun getFoodQuote() {
         viewModelScope.launch {
             try {
-                val result = NinjaApi.retrofitService.getQuote(getHeaderMap())
+                val result = RecipeApi.retrofitService.getQuote()
                 _quote.value = result[0]
             } catch (e: Exception) {
                 println(e)
             }
         }
     }
-
-    private fun getHeaderMap(): Map<String, String> {
-        val headerMap = mutableMapOf<String, String>()
-        headerMap["X-Api-Key"] = NinjaApi.apiKey
-        return headerMap
-    }
-
 }

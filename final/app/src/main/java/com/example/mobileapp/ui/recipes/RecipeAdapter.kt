@@ -1,5 +1,6 @@
 package com.example.mobileapp.ui.recipes
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.R
 import com.example.mobileapp.dto.RecipeDto
+import android.util.Base64
+import com.bumptech.glide.Glide
 
 class RecipeViewHolder(
     view: View,
@@ -34,23 +37,32 @@ class RecipeViewHolder(
     fun bind(recipeDto: RecipeDto){
         name.text = recipeDto.name
         description.text = recipeDto.description
-        ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
-        picture.setImageResource(R.mipmap.ic_launcher)
+        // ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
+
+        if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)
+        else {
+            var image = recipeDto.image.split("base64")[1] // no need for fancy regex
+            Glide.with(itemView.context)
+                .asBitmap()
+                .load(Base64.decode(image, Base64.DEFAULT))
+                .placeholder(R.mipmap.ic_launcher)
+                .into(picture)
+        }
 
         if(recipeDto.fave){
             star.setImageResource(R.drawable.baseline_star_24)
-            star.setColorFilter(ContextCompat.getColor(star.context, R.color.yellow), android.graphics.PorterDuff.Mode.SRC_IN)
+            star.setColorFilter(ContextCompat.getColor(star.context, R.color.yellow), PorterDuff.Mode.SRC_IN)
         } else {
             star.setImageResource(R.drawable.baseline_star_border_24)
-            star.setColorFilter(ContextCompat.getColor(star.context, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
+            star.setColorFilter(ContextCompat.getColor(star.context, R.color.black), PorterDuff.Mode.SRC_IN)
         }
 
         if(recipeDto.inCart){
             cart.setImageResource(R.drawable.baseline_shopping_cart_checkout_24)
-            cart.setColorFilter(ContextCompat.getColor(star.context, R.color.purple_700), android.graphics.PorterDuff.Mode.SRC_IN)
+            cart.setColorFilter(ContextCompat.getColor(star.context, R.color.purple_700), PorterDuff.Mode.SRC_IN)
         } else {
             cart.setImageResource(R.drawable.baseline_shopping_cart_24)
-            cart.setColorFilter(ContextCompat.getColor(star.context, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
+            cart.setColorFilter(ContextCompat.getColor(star.context, R.color.black), PorterDuff.Mode.SRC_IN)
         }
     }
 }
