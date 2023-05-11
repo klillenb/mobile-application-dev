@@ -41,24 +41,23 @@ class RecipesFragment : Fragment() {
 
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
-            override fun onItemClick(view: View, position: Int) {
+            override fun onItemClick(position: Int) {
                 Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
-                homeViewModel.toggleFave(position)
+                //homeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
-            override fun onStarClick(view: View, position: Int) {
+            override fun onStarClick(position: Int) {
                 Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
                 homeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
-            override fun onPictureClick(view: View, position: Int) {
-                Toast.makeText(activity, "klikkisid pildile", Toast.LENGTH_SHORT).show()
-                homeViewModel.toggleFave(position)
+            override fun onCartClick(position: Int) {
+                Toast.makeText(activity, "klikkisid kärule", Toast.LENGTH_SHORT).show()
+                homeViewModel.toggleAddToCart(position)
                 recipeAdapter.notifyItemChanged(position)
             }
-
         })
 
         recyclerView.adapter = recipeAdapter
