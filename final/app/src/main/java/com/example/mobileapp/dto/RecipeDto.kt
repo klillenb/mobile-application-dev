@@ -9,6 +9,7 @@ data class RecipeDto(
     val description: String,
     val picture: String?,
     var fave: Boolean = false,
+    var inCart: Boolean = false,
 )
 
 /*

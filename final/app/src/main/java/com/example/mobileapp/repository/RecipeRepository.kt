@@ -2,6 +2,7 @@ package com.example.mobileapp.repository
 
 
 import android.content.Context
+//import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mobileapp.dto.RecipeDto
@@ -22,9 +23,11 @@ class RecipeRepository(context: Context) : CoroutineScope {
     private val sharedPreferences = context.getSharedPreferences("recipe_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()
     private val faveRecipes = mutableListOf<String>()
+    private val recipesInCart = mutableListOf<String>()
 
     init {
-        faveRecipes += loadFaves("fave_recipes", faveRecipes)
+        faveRecipes += loadData("fave_recipes", faveRecipes)
+        recipesInCart += loadData("recipes_in_cart", recipesInCart)
     }
 
     override val coroutineContext: CoroutineContext
@@ -42,6 +45,10 @@ class RecipeRepository(context: Context) : CoroutineScope {
                     if(faveRecipes.contains(item._id)){
                         item.fave=true
                     }
+
+                    if(recipesInCart.contains(item._id)){
+                        item.inCart=true
+                    }
                 }
                 _recipes.value = result
             } catch (e: Exception) {
@@ -51,6 +58,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
     }
 
     fun toggleFave(recipe: RecipeDto){
+        //Log.d("STATUS", "toggleFave")
         _recipes.value?.find { it._id == recipe._id}?.fave = !recipe.fave
         this._recipes.postValue(_recipes.value)
 
@@ -59,16 +67,32 @@ class RecipeRepository(context: Context) : CoroutineScope {
         } else {
             faveRecipes.remove(recipe._id)
         }
-        saveFaves("fave_recipes", faveRecipes)
-        //Log.d("STATUS", "SP ${loadFaves("fave_recipes", faveRecipes)}")
+        saveData("fave_recipes", faveRecipes)
+        //Log.d("STATUS", "Kärus olevad retseptid ${loadData("recipes_in_cart", recipesInCart)}")
+        //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
     }
 
-    private fun saveFaves(key: String, list: List<String>) {
+    fun toggleAddToCart(recipe: RecipeDto){
+        //Log.d("STATUS", "toggleAddToCart")
+        _recipes.value?.find { it._id == recipe._id}?.inCart = !recipe.inCart
+        this._recipes.postValue(_recipes.value)
+
+        if (recipe.inCart){
+            recipesInCart.add(recipe._id)
+        } else {
+            recipesInCart.remove(recipe._id)
+        }
+        saveData("recipes_in_cart", recipesInCart)
+        //Log.d("STATUS", "Kärus olevad retseptid ${loadData("recipes_in_cart", recipesInCart)}")
+        //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
+    }
+
+    private fun saveData(key: String, list: List<String>) {
         val serializedList = gson.toJson(list)
         sharedPreferences.edit().putString(key, serializedList).apply()
     }
 
-    private fun loadFaves(key: String, defaultValue: List<String>): List<String> {
+    private fun loadData(key: String, defaultValue: List<String>): List<String> {
         val serializedList = sharedPreferences.getString(key, null)
         return if (serializedList != null) {
             gson.fromJson(serializedList, object : TypeToken<List<String>>() {}.type)

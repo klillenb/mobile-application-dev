@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+//import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -41,24 +41,23 @@ class RecipesFragment : Fragment() {
 
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
-            override fun onItemClick(view: View, position: Int) {
-                Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
+            override fun onItemClick(position: Int) {
+                //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
+                //siia mingi funktsioon, nt et avada detailne vaade (klikikuulaja on adapetris lahti ühendatud)
+                recipeAdapter.notifyItemChanged(position)
+            }
+
+            override fun onStarClick(position: Int) {
+                //Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
                 homeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
-            override fun onStarClick(view: View, position: Int) {
-                Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
-                homeViewModel.toggleFave(position)
+            override fun onCartClick(position: Int) {
+                //Toast.makeText(activity, "klikkisid kärule", Toast.LENGTH_SHORT).show()
+                homeViewModel.toggleAddToCart(position)
                 recipeAdapter.notifyItemChanged(position)
             }
-
-            override fun onPictureClick(view: View, position: Int) {
-                Toast.makeText(activity, "klikkisid pildile", Toast.LENGTH_SHORT).show()
-                homeViewModel.toggleFave(position)
-                recipeAdapter.notifyItemChanged(position)
-            }
-
         })
 
         recyclerView.adapter = recipeAdapter

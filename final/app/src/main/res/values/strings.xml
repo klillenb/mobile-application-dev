@@ -9,4 +9,5 @@
     <string name="delete_button_desc">Delete</string>
     <string name="starred_item_recipe_list">Starred</string>
     <string name="picture_item_recipe_list">Recipe image</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>
