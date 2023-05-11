@@ -1,9 +1,9 @@
 package com.example.mobileapp.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.*
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.repository.RecipeRepository
 import com.example.mobileapp.dto.FoodQuoteDto
@@ -12,8 +12,11 @@ import kotlinx.coroutines.launch
 
 //https://developer.android.com/codelabs/basic-android-kotlin-training-shared-viewmodel#3
 
-class SharedViewModel: ViewModel() {
-    private val _repository = RecipeRepository()
+class SharedViewModel(application: Application): AndroidViewModel(application) {
+
+    @SuppressLint("StaticFieldLeak")
+    private val context: Context = getApplication<Application>().applicationContext
+    private val _repository = RecipeRepository(context)
     val recipeList: LiveData<List<RecipeDto>> = _repository.recipes
 
     private val _quote = MutableLiveData<FoodQuoteDto>()
