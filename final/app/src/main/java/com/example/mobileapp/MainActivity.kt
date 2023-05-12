@@ -32,9 +32,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        //0_0
-        //supportFragmentManager.beginTransaction().replace(R.id.container,RecipesFragment()).commit()
-
+        
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
