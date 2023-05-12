@@ -21,4 +21,9 @@
         android:icon="@drawable/baseline_shopping_cart_24"
         android:title="@string/title_shopping" />
 
+    <item
+        android:id="@+id/navigation_upload"
+        android:icon="@drawable/baseline_upload_24"
+        android:title="@string/title_upload" />
+
 </menu>

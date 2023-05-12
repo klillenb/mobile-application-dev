@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_recipes"
-        android:name="com.example.mobileapp.ui.recipes.RecipesFragment"
+        android:name="com.example.mobileapp.ui.meals.recipes.RecipesFragment"
         android:label="@string/title_recipes"
         tools:layout="@layout/fragment_recipes" />
 
@@ -28,5 +28,11 @@
         android:name="com.example.mobileapp.ui.shopping.ShoppingFragment"
         android:label="@string/title_shopping"
         tools:layout="@layout/fragment_shopping" />
+
+    <fragment
+        android:id="@+id/navigation_upload"
+        android:name="com.example.mobileapp.ui.upload.UploadFragment"
+        android:label="@string/title_upload"
+        tools:layout="@layout/fragment_upload" />
 
 </navigation>
