@@ -1,13 +1,45 @@
 package com.example.mobileapp.dto
 
+import android.os.Parcel
+import android.os.Parcelable
+
 data class RecipeDto(
-    val name: String,
-    val ingredients: List<String>,
-    val instructions: String,
-    val username: String,
-    val description: String,
-    val picture: String?,
-)
+    val name: String?,
+    val description: String?,
+    val imageUrl: String?,
+    val ingredients: List<String>?,
+    val steps: List<String>?
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.createStringArrayList(),
+        parcel.createStringArrayList()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeString(description)
+        parcel.writeString(imageUrl)
+        parcel.writeStringList(ingredients)
+        parcel.writeStringList(steps)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<RecipeDto> {
+        override fun createFromParcel(parcel: Parcel): RecipeDto {
+            return RecipeDto(parcel)
+        }
+
+        override fun newArray(size: Int): Array<RecipeDto?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 
 /*
 {

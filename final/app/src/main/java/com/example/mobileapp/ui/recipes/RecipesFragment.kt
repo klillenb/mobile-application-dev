@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobileapp.R
 import com.example.mobileapp.databinding.FragmentRecipesBinding
 import com.example.mobileapp.dto.RecipeDto
 
@@ -43,7 +44,7 @@ class RecipesFragment : Fragment() {
 
         val recipeAdapter = RecipeAdapter(){recipe ->
             //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
-            Toast.makeText(activity, "tere", Toast.LENGTH_SHORT).show()
+            showRecipeDetail(recipe)
             //showForecastDetails(forecast)
             //TODO sisesta retseptivaade (intentiga?)
         }
@@ -62,5 +63,12 @@ class RecipesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun showRecipeDetail(recipe: RecipeDto) {
+        val recipeDetailFragment = RecipeDetailFragment.newInstance(recipe)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, recipeDetailFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textviewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Recipe Title"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textviewIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ingredients:"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textviewInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Instructions:"
+        android:padding="16dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textviewdescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Instructions:"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

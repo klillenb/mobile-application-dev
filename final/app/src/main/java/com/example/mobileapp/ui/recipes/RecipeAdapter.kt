@@ -1,6 +1,7 @@
 package com.example.mobileapp.ui.recipes
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +24,11 @@ class RecipeViewHolder(
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
     private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
 
+    @SuppressLint("SetTextI18n")
     fun bind(recipeDto: RecipeDto){
         name.text = recipeDto.name
         description.text = recipeDto.description
-        ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
+        ingredients.text = "Ingredients: ${recipeDto.ingredients?.joinToString()}"
 
         picture.setImageResource(R.mipmap.ic_launcher)
 
