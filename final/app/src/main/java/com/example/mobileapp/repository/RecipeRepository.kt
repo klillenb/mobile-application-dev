@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.network.RecipeApi
+import com.example.mobileapp.ui.recipes.RecipeViewHolder
+import com.example.mobileapp.ui.recipes.RecipesFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
@@ -43,14 +45,15 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 //kas on kohalikud lemmikud
                 for (item: RecipeDto in result) {
                     if(faveRecipes.contains(item._id)){
-                        item.fave=true
+                        item.fave = true
                     }
 
                     if(recipesInCart.contains(item._id)){
-                        item.inCart=true
+                        item.inCart = true
                     }
                 }
                 _recipes.value = result
+
             } catch (e: Exception) {
                 println(e)
             }
