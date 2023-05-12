@@ -4,6 +4,7 @@ import com.example.mobileapp.dto.FoodQuoteDto
 import com.example.mobileapp.dto.RecipeDto
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -36,5 +37,5 @@ interface RecipeApiService {
     suspend fun getRecipes(): List<RecipeDto>
 
     @GET("quote")
-    suspend fun getQuote(): List<FoodQuoteDto>
+    suspend fun getQuote(): Response<List<FoodQuoteDto>>
 }

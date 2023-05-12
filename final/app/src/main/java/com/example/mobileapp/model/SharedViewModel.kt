@@ -3,6 +3,7 @@ package com.example.mobileapp.model
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.repository.RecipeRepository
@@ -18,6 +19,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     private val context: Context = getApplication<Application>().applicationContext
     private val _repository = RecipeRepository(context)
     val recipeList: LiveData<List<RecipeDto>> = _repository.recipes
+    val showProgress: MutableLiveData<Boolean> = MutableLiveData()
 
     private val _quote = MutableLiveData<FoodQuoteDto>()
     val quote: LiveData<FoodQuoteDto> = _quote
@@ -42,10 +44,18 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     private fun getFoodQuote() {
         viewModelScope.launch {
             try {
+                showProgress.postValue(true)
                 val result = RecipeApi.retrofitService.getQuote()
-                _quote.value = result[0]
+                if(result.code() == 200){ // .isSuccessful is any code in range 200-300, body is on HTTP 200
+                    _quote.value = result.body()?.get(0)
+                } else {
+                    Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
+                }
+                showProgress.postValue(false)
             } catch (e: Exception) {
                 println(e)
+                Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
+                showProgress.postValue(false)
             }
         }
     }
