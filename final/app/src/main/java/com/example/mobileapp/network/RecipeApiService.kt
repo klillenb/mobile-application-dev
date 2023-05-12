@@ -34,7 +34,7 @@ object RecipeApi {
 
 interface RecipeApiService {
     @GET("recipe")
-    suspend fun getRecipes(): List<RecipeDto>
+    suspend fun getRecipes(): Response<List<RecipeDto>>
 
     @GET("quote")
     suspend fun getQuote(): Response<List<FoodQuoteDto>>

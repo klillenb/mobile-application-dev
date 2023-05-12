@@ -28,7 +28,7 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel =
+        val recipeViewModel =
             ViewModelProvider(this)[sharedViewModel::class.java]
 
         _binding = FragmentRecipesBinding.inflate(inflater, container, false)
@@ -49,13 +49,13 @@ class RecipesFragment : Fragment() {
 
             override fun onStarClick(position: Int) {
                 //Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
-                homeViewModel.toggleFave(position)
+                recipeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
             override fun onCartClick(position: Int) {
                 //Toast.makeText(activity, "klikkisid kärule", Toast.LENGTH_SHORT).show()
-                homeViewModel.toggleAddToCart(position)
+                recipeViewModel.toggleAddToCart(position)
                 recipeAdapter.notifyItemChanged(position)
             }
         })
@@ -66,8 +66,10 @@ class RecipesFragment : Fragment() {
         val recipeDtoObserver = Observer<List<RecipeDto>>{ recipes ->
             recipeAdapter.submitList(recipes)
         }
-        homeViewModel.recipeList.observe(viewLifecycleOwner, recipeDtoObserver )
-
+        recipeViewModel.recipeList.observe(viewLifecycleOwner, recipeDtoObserver )
+        recipeViewModel.showProgress.observe(viewLifecycleOwner, Observer{
+            binding.recipeProgressBar.visibility = if(it) View.VISIBLE else View.GONE
+        })
         return root
     }
 

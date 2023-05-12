@@ -29,9 +29,6 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         getData()
     }
 
-    //recipes
-    private fun getData() { _repository.getRecipes() }
-
     fun toggleFave(pos: Int) {
         _repository.toggleFave(recipeList.value !! [pos])
     }
@@ -39,6 +36,9 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     fun toggleAddToCart(pos: Int) {
         _repository.toggleAddToCart(recipeList.value !! [pos])
     }
+
+    //recipes
+    private fun getData() { _repository.getRecipes(context) }
 
     //quotes
     private fun getFoodQuote() {
