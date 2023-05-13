@@ -4,21 +4,21 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class RecipeDto(
-    val _id: String,
-    val name: String,
-    val ingredients: ArrayList<String>?,
-    val instructions: String,
-    val description: String,
+    val _id: String?,
+    val name: String?,
+    val ingredients: List<String>?,
+    val instructions: String?,
+    val description: String?,
     val image: String?,
     var fave: Boolean = false,
     var inCart: Boolean = false,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
-        parcel.readString()!!,
+        parcel.readString(),
+        parcel.readString(),
         parcel.createStringArrayList(),
-        parcel.readString()!!,
-        parcel.readString()!!,
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readByte() != 0.toByte(),
         parcel.readByte() != 0.toByte()

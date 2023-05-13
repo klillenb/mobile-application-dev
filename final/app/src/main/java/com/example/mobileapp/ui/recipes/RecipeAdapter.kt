@@ -31,14 +31,15 @@ class RecipeViewHolder(
 
     init {
         //kogu elemendi kuulaja
-        //itemView.setOnClickListener { listener.onItemClick(adapterPosition) }
+        itemView.setOnClickListener { listener.onItemClick(adapterPosition) }
         star.setOnClickListener { listener.onStarClick(adapterPosition) }
         cart.setOnClickListener { listener.onCartClick(adapterPosition) }
     }
+    //@SuppressLint("SetTextI18n")
     fun bind(recipeDto: RecipeDto){
         name.text = recipeDto.name
         description.text = recipeDto.description
-        ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
+        //ingredients.text = "Ingredients: ${recipeDto.ingredients?.joinToString()}"
 
 
         if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)

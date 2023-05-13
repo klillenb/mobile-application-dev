@@ -25,7 +25,7 @@ class RecipeDetailFragment : Fragment() {
 
         binding.textviewTitle.text = recipe?.name
         binding.textviewIngredients.text = recipe?.ingredients?.joinToString("\n")
-        binding.textviewInstructions.text = recipe?.steps?.joinToString("\n")
+        binding.textviewInstructions.text = recipe?.instructions
         binding.textviewdescription.text = recipe?.description
 
         return view

@@ -40,19 +40,18 @@ class RecipesFragment : Fragment() {
 
         val recipeAdapter = RecipeAdapter()
 
-
-        val recipeAdapter = RecipeAdapter(){recipe ->
+        /*val recipeAdapter = RecipeAdapter(){recipe ->
             //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
             showRecipeDetail(recipe)
             //showForecastDetails(forecast)
-            //TODO sisesta retseptivaade (intentiga?)
-        }
+        }*/
 
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
                 //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
-                //siia mingi funktsioon, nt et avada detailne vaade (klikikuulaja on adapetris lahti ühendatud)
+                val recipe = recipeAdapter.currentList[position]
+                showRecipeDetail(recipe)
                 recipeAdapter.notifyItemChanged(position)
             }
 

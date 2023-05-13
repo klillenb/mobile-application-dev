@@ -66,7 +66,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
         this._recipes.postValue(_recipes.value)
 
         if (recipe.fave){
-            faveRecipes.add(recipe._id)
+            recipe._id?.let { faveRecipes.add(it) }
         } else {
             faveRecipes.remove(recipe._id)
         }
@@ -81,7 +81,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
         this._recipes.postValue(_recipes.value)
 
         if (recipe.inCart){
-            recipesInCart.add(recipe._id)
+            recipe._id?.let { recipesInCart.add(it) }
         } else {
             recipesInCart.remove(recipe._id)
         }
