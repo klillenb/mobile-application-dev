@@ -1,12 +1,17 @@
 package com.example.mobileapp.ui.recipes
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.example.mobileapp.R
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.databinding.FragmentRecipeDetailBinding
+import com.bumptech.glide.Glide
 
 class RecipeDetailFragment : Fragment() {
 
@@ -22,6 +27,27 @@ class RecipeDetailFragment : Fragment() {
         val view = binding.root
 
         val recipe = arguments?.getParcelable<RecipeDto>("recipe")
+
+        //decode image
+        val base64Image = recipe?.image
+        val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+
+        //set image
+        //binding.imageviewRecipe.text = recipe?.image
+
+
+            if(recipe?.image.isNullOrEmpty()) binding.imageviewRecipe.setImageResource(R.mipmap.ic_launcher)
+            else {
+                var image = recipe?.image?.split("base64")?.get(1)
+                Glide.with(binding.imageviewRecipe.context)
+                    .asBitmap()
+                    .load(Base64.decode(image, Base64.DEFAULT))
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(binding.imageviewRecipe)
+            }
+
+
 
         binding.textviewTitle.text = recipe?.name
         binding.textviewIngredients.text = recipe?.ingredients?.joinToString("\n")
