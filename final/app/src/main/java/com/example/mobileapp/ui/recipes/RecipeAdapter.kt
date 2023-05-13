@@ -1,5 +1,4 @@
 package com.example.mobileapp.ui.recipes
-import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
