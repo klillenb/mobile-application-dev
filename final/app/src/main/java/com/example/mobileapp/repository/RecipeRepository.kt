@@ -58,9 +58,27 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 }
             } catch (e: Exception) {
                 println(e)
-                Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
             } finally {
                 showProgress.postValue(false)
+            }
+        }
+    }
+
+    fun addRecipe(context: Context, recipe: RecipeDto) {
+        launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    RecipeApi.retrofitService.addRecipe(recipe)
+                }
+                println(result.body())
+                if (result.code() == 200) {
+                    Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -71,7 +89,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
         this._recipes.postValue(_recipes.value)
 
         if (recipe.fave){
-            faveRecipes.add(recipe._id)
+            recipe._id?.let { faveRecipes.add(it) }
         } else {
             faveRecipes.remove(recipe._id)
         }
@@ -86,7 +104,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
         this._recipes.postValue(_recipes.value)
 
         if (recipe.inCart){
-            recipesInCart.add(recipe._id)
+            recipe._id?.let { recipesInCart.add(it) }
         } else {
             recipesInCart.remove(recipe._id)
         }

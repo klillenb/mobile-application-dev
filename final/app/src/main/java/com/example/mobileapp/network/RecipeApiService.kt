@@ -7,7 +7,10 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.POST
 
 private const val BASE_URL = "https://recipe-api.cyclic.app/"
 
@@ -38,4 +41,8 @@ interface RecipeApiService {
 
     @GET("quote")
     suspend fun getQuote(): Response<List<FoodQuoteDto>>
+
+    @Headers("Content-Type: application/json")
+    @POST("recipe/add")
+    suspend fun addRecipe(@Body recipeData: RecipeDto): Response<String>
 }
