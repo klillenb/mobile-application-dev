@@ -4,26 +4,35 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class RecipeDto(
-    val name: String?,
-    val description: String?,
-    val imageUrl: String?,
-    val ingredients: List<String>?,
-    val steps: List<String>?
+    val _id: String,
+    val name: String,
+    val ingredients: ArrayList<String>?,
+    val instructions: String,
+    val description: String,
+    val image: String?,
+    var fave: Boolean = false,
+    var inCart: Boolean = false,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
+        parcel.readString()!!,
+        parcel.readString()!!,
         parcel.createStringArrayList(),
-        parcel.createStringArrayList()
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(_id)
         parcel.writeString(name)
-        parcel.writeString(description)
-        parcel.writeString(imageUrl)
         parcel.writeStringList(ingredients)
-        parcel.writeStringList(steps)
+        parcel.writeString(instructions)
+        parcel.writeString(description)
+        parcel.writeString(image)
+        parcel.writeByte(if (fave) 1 else 0)
+        parcel.writeByte(if (inCart) 1 else 0)
     }
 
     override fun describeContents(): Int {
@@ -40,15 +49,3 @@ data class RecipeDto(
         }
     }
 }
-
-/*
-{
-    name: { type: String, required: true },
-    //ingrediets is an array of objects with name and quantity
-    ingredients: { type: Array, required: true },
-    instructions: { type: String, required: true },
-    username: { type: String, required: true },
-    description: { type: String, required: true },
-    picture: { type: String, required: false },
-}
-*/

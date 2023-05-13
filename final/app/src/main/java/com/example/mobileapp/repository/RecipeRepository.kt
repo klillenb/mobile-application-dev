@@ -1,23 +1,37 @@
 package com.example.mobileapp.repository
 
+
+import android.content.Context
+//import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.network.RecipeApi
+import com.example.mobileapp.ui.recipes.RecipeViewHolder
+import com.example.mobileapp.ui.recipes.RecipesFragment
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
+
 //https://chris-ribetti.medium.com/android-viewmodel-livedata-repository-and-di-complete-and-super-quick-5a7d78fa7946
 
-class RecipeRepository : CoroutineScope {
+class RecipeRepository(context: Context) : CoroutineScope {
     private val job = Job()
-    private val _recipes = MutableLiveData<List<RecipeDto>>()
+    private val _recipes: MutableLiveData<List<RecipeDto>> = MutableLiveData()
     val recipes: LiveData<List<RecipeDto>> = _recipes
-//    fun loadRecipes(){
-//
-//        val recipeDtoList = List(10){ i -> RecipeDto(name="Recipe${i+1}", description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.") }
-//        _recipes.value = recipeDtoList
-//    }
+
+    private val sharedPreferences = context.getSharedPreferences("recipe_prefs", Context.MODE_PRIVATE)
+    private val gson = Gson()
+    private val faveRecipes = mutableListOf<String>()
+    private val recipesInCart = mutableListOf<String>()
+
+    init {
+        faveRecipes += loadData("fave_recipes", faveRecipes)
+        recipesInCart += loadData("recipes_in_cart", recipesInCart)
+    }
+
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
@@ -27,10 +41,66 @@ class RecipeRepository : CoroutineScope {
                 val result = withContext(Dispatchers.IO) {
                     RecipeApi.retrofitService.getRecipes()
                 }
+
+                //kas on kohalikud lemmikud
+                for (item: RecipeDto in result) {
+                    if(faveRecipes.contains(item._id)){
+                        item.fave = true
+                    }
+
+                    if(recipesInCart.contains(item._id)){
+                        item.inCart = true
+                    }
+                }
                 _recipes.value = result
+
             } catch (e: Exception) {
                 println(e)
             }
+        }
+    }
+
+    fun toggleFave(recipe: RecipeDto){
+        //Log.d("STATUS", "toggleFave")
+        _recipes.value?.find { it._id == recipe._id}?.fave = !recipe.fave
+        this._recipes.postValue(_recipes.value)
+
+        if (recipe.fave){
+            faveRecipes.add(recipe._id)
+        } else {
+            faveRecipes.remove(recipe._id)
+        }
+        saveData("fave_recipes", faveRecipes)
+        //Log.d("STATUS", "Kärus olevad retseptid ${loadData("recipes_in_cart", recipesInCart)}")
+        //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
+    }
+
+    fun toggleAddToCart(recipe: RecipeDto){
+        //Log.d("STATUS", "toggleAddToCart")
+        _recipes.value?.find { it._id == recipe._id}?.inCart = !recipe.inCart
+        this._recipes.postValue(_recipes.value)
+
+        if (recipe.inCart){
+            recipesInCart.add(recipe._id)
+        } else {
+            recipesInCart.remove(recipe._id)
+        }
+        saveData("recipes_in_cart", recipesInCart)
+        //Log.d("STATUS", "Kärus olevad retseptid ${loadData("recipes_in_cart", recipesInCart)}")
+        //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
+    }
+
+    private fun saveData(key: String, list: List<String>) {
+        val serializedList = gson.toJson(list)
+        sharedPreferences.edit().putString(key, serializedList).apply()
+    }
+
+    private fun loadData(key: String, defaultValue: List<String>): List<String> {
+        val serializedList = sharedPreferences.getString(key, null)
+        return if (serializedList != null) {
+            gson.fromJson(serializedList, object : TypeToken<List<String>>() {}.type)
+        } else {
+            defaultValue
         }
     }
 }

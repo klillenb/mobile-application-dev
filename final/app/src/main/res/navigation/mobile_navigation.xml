@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_recipes" />
 
     <fragment
+        android:id="@+id/navigation_upload"
+        android:name="com.example.mobileapp.ui.upload.UploadFragment"
+        android:label="@string/title_upload"
+        tools:layout="@layout/fragment_upload" />
+
+    <fragment
         android:id="@+id/navigation_shopping"
         android:name="com.example.mobileapp.ui.shopping.ShoppingFragment"
         android:label="@string/title_shopping"
