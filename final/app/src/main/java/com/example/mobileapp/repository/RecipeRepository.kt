@@ -56,10 +56,11 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 } else {
                     Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
                 }
-                showProgress.postValue(false)
             } catch (e: Exception) {
                 println(e)
                 Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
+            } finally {
+                showProgress.postValue(false)
             }
         }
     }
