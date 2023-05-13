@@ -37,7 +37,7 @@ class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartIte
 
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
         val item: ShoppingCartItem = items[position]
-        holder.textView.text = "${item.name} $position"
+        holder.textView.text = item.name
         holder.checkBox.isChecked = item.done
         holder.checkBox.setOnCheckedChangeListener {
             // Lambda function!
