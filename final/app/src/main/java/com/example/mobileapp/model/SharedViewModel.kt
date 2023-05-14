@@ -44,7 +44,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
     //recipes
     fun getData() { _repository.getRecipes(context) }
     fun saveData(recipeDto: RecipeDto) { _repository.addRecipe(context, recipeDto) }
-    fun removeData(recipeDto: RecipeDto) {_repository.removeRecipe(context, recipeDto) }
+    fun removeData(recipeDto: RecipeDto) { _repository.removeRecipe(context, recipeDto) }
 
     //quotes
     private fun getFoodQuote() {
