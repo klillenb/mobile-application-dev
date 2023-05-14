@@ -74,7 +74,7 @@ Retseptile vajutades avaneb detailne vaade.
 
 ## Ostukäru
 
-### Teegid
+## Teegid
  * Moshi: Teek, mis aitab JSON formaati Java või Kotlini objektideks muuta.
  * Gson: Teek, mis aitab JSON formaati Java või Kotlini objektideks muuta ja vastupidi.
  * Glide: Teek, mis aitab Androidis pildide laadimist hõlbustada.
