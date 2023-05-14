@@ -27,15 +27,14 @@ class RecipeDetailFragment : Fragment() {
         val recipe = arguments?.getParcelable<RecipeDto>("recipe")
 
         //set image
-            if(recipe?.image.isNullOrEmpty()) binding.imageviewRecipe.setImageResource(R.mipmap.ic_launcher)
-            else {
-                var image = recipe?.image?.split("base64")?.get(1)
-                Glide.with(binding.imageviewRecipe.context)
-                    .asBitmap()
-                    .load(Base64.decode(image, Base64.DEFAULT))
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(binding.imageviewRecipe)
-            }
+        if(recipe?.image.isNullOrEmpty()) binding.imageviewRecipe.setImageResource(R.mipmap.ic_launcher)
+        else {
+            Glide.with(binding.imageviewRecipe.context)
+                .asBitmap()
+                .load(Base64.decode(recipe!!.image, Base64.DEFAULT))
+                .placeholder(R.mipmap.ic_launcher)
+                .into(binding.imageviewRecipe)
+        }
 
         binding.textviewTitle.text = recipe?.name
         binding.textviewIngredients.text = recipe?.ingredients?.joinToString("\n")

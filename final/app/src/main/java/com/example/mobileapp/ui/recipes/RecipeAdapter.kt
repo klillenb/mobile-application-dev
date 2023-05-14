@@ -40,7 +40,7 @@ class RecipeViewHolder(
         name.text = recipeDto.name
 
         val descriptionLen = 120
-        if(recipeDto.description.length>descriptionLen+5){
+        if(recipeDto.description!!.length>descriptionLen+5){
             val inputString : String = recipeDto.description
             val pos: Int = inputString.indexOf(" ", descriptionLen)
             if(pos>=descriptionLen){

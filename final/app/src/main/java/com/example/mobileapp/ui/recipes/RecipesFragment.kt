@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 //import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,13 +41,6 @@ class RecipesFragment : Fragment() {
 
         val recipeAdapter = RecipeAdapter()
 
-        /*val recipeAdapter = RecipeAdapter(){recipe ->
-            //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
-            showRecipeDetail(recipe)
-            //showForecastDetails(forecast)
-        }*/
-
-
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
                 //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
@@ -56,13 +50,11 @@ class RecipesFragment : Fragment() {
             }
 
             override fun onStarClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
                 homeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
             override fun onCartClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid kärule", Toast.LENGTH_SHORT).show()
                 homeViewModel.toggleAddToCart(position)
                 recipeAdapter.notifyItemChanged(position)
             }
@@ -85,9 +77,11 @@ class RecipesFragment : Fragment() {
     }
     private fun showRecipeDetail(recipe: RecipeDto) {
         val recipeDetailFragment = RecipeDetailFragment.newInstance(recipe)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, recipeDetailFragment)
-            .addToBackStack(null)
-            .commit()
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.container, recipeDetailFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
