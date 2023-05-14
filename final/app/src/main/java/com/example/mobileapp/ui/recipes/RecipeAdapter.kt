@@ -14,6 +14,7 @@ import com.example.mobileapp.R
 import com.example.mobileapp.dto.RecipeDto
 import android.util.Base64
 import com.bumptech.glide.Glide
+import kotlin.text.Typography.ellipsis
 
 class RecipeViewHolder(
     view: View,
@@ -22,7 +23,7 @@ class RecipeViewHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     private val name : TextView = view.findViewById(R.id.name_recipe_list_item)
-    private val ingredients : TextView = view.findViewById(R.id.ingredients_recipe_list_item)
+    //private val ingredients : TextView = view.findViewById(R.id.ingredients_recipe_list_item)
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
     private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
     private val star: ImageView = view.findViewById(R.id.star_recipe_list_item)
@@ -36,15 +37,27 @@ class RecipeViewHolder(
     }
     fun bind(recipeDto: RecipeDto){
         name.text = recipeDto.name
-        description.text = recipeDto.description
+
+        val descriptionLen = 120
+        if(recipeDto.description.length>descriptionLen+5){
+            val inputString : String = recipeDto.description
+            val pos: Int = inputString.indexOf(" ", descriptionLen)
+            if(pos>=descriptionLen){
+                description.text = recipeDto.description.substring(0, pos).plus(ellipsis)
+            } else {
+                description.text = recipeDto.description
+            }
+        } else {
+            description.text = recipeDto.description
+        }
+
         // ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
         if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)
         else {
-            var image = recipeDto.image.split("base64")[1] // no need for fancy regex
             Glide.with(itemView.context)
                 .asBitmap()
-                .load(Base64.decode(image, Base64.DEFAULT))
+                .load(Base64.decode(recipeDto.image, Base64.DEFAULT))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(picture)
         }
@@ -67,7 +80,7 @@ class RecipeViewHolder(
     }
 }
 
-class RecipeAdapter() : ListAdapter<RecipeDto, RecipeViewHolder>(DIFF_CONFIG) {
+class RecipeAdapter : ListAdapter<RecipeDto, RecipeViewHolder>(DIFF_CONFIG) {
 
     private lateinit var onItemClickListener: OnItemClickListener
     interface OnItemClickListener {
