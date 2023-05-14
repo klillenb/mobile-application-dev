@@ -8,9 +8,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 private const val BASE_URL = "https://recipe-api.cyclic.app/"
 
@@ -45,4 +47,7 @@ interface RecipeApiService {
     @Headers("Content-Type: application/json")
     @POST("recipe/add")
     suspend fun addRecipe(@Body recipeData: RecipeDto): Response<String>
+
+    @DELETE("recipe/{id}")
+    suspend fun removeRecipe(@Path("id") recipeId: String): Response<String>
 }

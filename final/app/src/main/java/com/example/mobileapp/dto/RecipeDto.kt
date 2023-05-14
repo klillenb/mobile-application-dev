@@ -1,7 +1,7 @@
 package com.example.mobileapp.dto
 
 data class RecipeDto(
-    val _id: String?,
+    val _id: String,
     val name: String,
     val ingredients: List<String>,
     val instructions: String,

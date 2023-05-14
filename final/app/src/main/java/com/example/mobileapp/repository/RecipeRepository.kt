@@ -3,7 +3,6 @@ package com.example.mobileapp.repository
 
 import android.content.Context
 import android.widget.Toast
-//import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mobileapp.dto.RecipeDto
@@ -82,8 +81,24 @@ class RecipeRepository(context: Context) : CoroutineScope {
         }
     }
 
+    fun removeRecipe(context: Context, recipe: RecipeDto) {
+        launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    RecipeApi.retrofitService.removeRecipe(recipe._id)
+                }
+                if (result.code() == 200) {
+                    Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     fun toggleFave(recipe: RecipeDto){
-        //Log.d("STATUS", "toggleFave")
         _recipes.value?.find { it._id == recipe._id}?.fave = !recipe.fave
         this._recipes.postValue(_recipes.value)
 
@@ -93,8 +108,6 @@ class RecipeRepository(context: Context) : CoroutineScope {
             faveRecipes.remove(recipe._id)
         }
         saveData("fave_recipes", faveRecipes)
-        //Log.d("STATUS", "Kärus olevad retseptid ${loadData("recipes_in_cart", recipesInCart)}")
-        //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
     }
 
     fun toggleAddToCart(recipe: RecipeDto){
@@ -108,8 +121,6 @@ class RecipeRepository(context: Context) : CoroutineScope {
             recipesInCart.remove(recipe._id)
         }
         saveData("recipes_in_cart", recipesInCart)
-        //Log.d("STATUS", "Kärus olevad retseptid ${loadData("recipes_in_cart", recipesInCart)}")
-        //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
     }
 
     private fun saveData(key: String, list: List<String>) {
