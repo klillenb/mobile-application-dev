@@ -2,6 +2,8 @@ package com.example.mobileapp.dto
 
 /**
  * Data class to contain information about received and new recipes
+ * @property _id Record id from DB
+ * @property image Base64 string of image
  * @property fave Relevant for application logic, not forwarded to server
  * @property inCart Relevant for application logic, not forwarded to server
  */
