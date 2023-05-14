@@ -13,6 +13,10 @@ import kotlinx.coroutines.launch
 
 //https://developer.android.com/codelabs/basic-android-kotlin-training-shared-viewmodel#3
 
+/**
+ * Common view-model used to handle data between fragments.
+ * Contains methods for getting data from server, sending new recipes to server and remove recipes from DB
+ */
 class SharedViewModel(application: Application): AndroidViewModel(application) {
 
     @SuppressLint("StaticFieldLeak")
