@@ -3,11 +3,11 @@
 Android Studio Electric Eel | 2022.1.1, SDK 29, 33, Kotlin
 
 ## Autorid
-Kairi Käpa
-Reydan Niineorg
-Martin Rünk
-Taavi Kamarik
-Taavi Pahk
+Kairi Käpa \
+Reydan Niineorg \
+Martin Rünk \
+Taavi Kamarik \
+Taavi Pahk \
 Kert Lillenberk
 
 ## Install
