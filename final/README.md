@@ -2,6 +2,14 @@
 
 Android Studio Electric Eel | 2022.1.1, SDK 29, 33, Kotlin
 
+## Autorid
+Kairi Käpa \
+Reydan Niineorg \
+Martin Rünk \
+Taavi Kamarik \
+Taavi Pahk \
+Kert Lillenberk
+
 ## Install
 Rakenduse katsetamiseks tuleb kõigepealt veenduda, et on olemas sobiv IDE, näiteks Android Studio. Klooni repo ja ava see "final" kaustas. Seadista endale emulaator koos min SDK 29, rohkem infot - https://developer.android.com/studio/run/managing-avds \
 Kui need sammud on tehtud, siis lihtsalt "Run App" loodud emulaatoris. \
