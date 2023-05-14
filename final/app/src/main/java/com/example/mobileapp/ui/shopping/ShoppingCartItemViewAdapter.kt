@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.view.View
 import android.widget.*
 
-class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartItem>): RecyclerView.Adapter<ShoppingCartItemViewAdapter.ShoppingCartViewHolder>() {
+class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartItem>, private val removeRecipe: (String) -> Unit):
+    RecyclerView.Adapter<ShoppingCartItemViewAdapter.ShoppingCartViewHolder>()
+{
 
     class ShoppingCartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val checkBox: CheckBox
@@ -43,6 +45,9 @@ class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartIte
             // Lambda function!
             button: CompoundButton, checked: Boolean ->
                 items[position].done = checked
+                if (checked) {
+                    removeRecipe(item.recipeId)
+                }
         }
         holder.button.setOnClickListener {
             items.removeAt(position)
@@ -55,6 +60,7 @@ class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartIte
         items.forEach {
             item: ShoppingCartItem ->
                 item.done = true
+                removeRecipe(item.recipeId)
         }
         notifyItemRangeChanged(0, items.size)
     }

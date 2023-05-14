@@ -1,15 +1,12 @@
 package com.example.mobileapp.ui.shopping
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentShoppingBinding
@@ -41,17 +38,25 @@ class ShoppingFragment : Fragment() {
             ViewModelProvider(this)[sharedViewModel::class.java]
         items = mutableListOf()
 
+        val removeRecipeFromCart = fun(id: String) {
+            val recipe: RecipeDto? = homeViewModel.recipeList.value?.find {
+                it._id == id
+            }
+            val pos: Int? = homeViewModel.recipeList.value?.indexOf(recipe)
+            homeViewModel.removeFromCart(pos!!)
+        }
+
         homeViewModel.recipeList.value?.forEach {
             recipe: RecipeDto ->
-                Log.d(TAG, "${recipe.name}, ${recipe.inCart}")
                 if (recipe.inCart) {
                     recipe.ingredients.forEach {
-                        items.add(ShoppingCartItem(it))
+                        ingredient: String ->
+                            items.add(ShoppingCartItem(ingredient, recipe._id))
                     }
                 }
         }
 
-        shoppingCartItemViewAdapter = ShoppingCartItemViewAdapter(items)
+        shoppingCartItemViewAdapter = ShoppingCartItemViewAdapter(items, removeRecipeFromCart)
         val recyclerView: RecyclerView = binding.recyclerViewShopping
         recyclerView.adapter = shoppingCartItemViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -70,10 +75,5 @@ class ShoppingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 }

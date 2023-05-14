@@ -90,6 +90,20 @@ class RecipeRepository(context: Context) : CoroutineScope {
         //Log.d("STATUS", "Lemmikud retseptid ${loadData("fave_recipes", faveRecipes)}")
     }
 
+    fun removeFromCart(recipe: RecipeDto) {
+        _recipes.value?.find {
+            it._id == recipe._id
+        }?.inCart = false
+        this._recipes.postValue(_recipes.value)
+
+        if (recipe.inCart){
+            recipesInCart.add(recipe._id)
+        } else {
+            recipesInCart.remove(recipe._id)
+        }
+        saveData("recipes_in_cart", recipesInCart)
+    }
+
     private fun saveData(key: String, list: List<String>) {
         val serializedList = gson.toJson(list)
         sharedPreferences.edit().putString(key, serializedList).apply()

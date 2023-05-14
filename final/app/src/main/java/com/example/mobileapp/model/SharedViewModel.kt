@@ -40,6 +40,10 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         _repository.toggleAddToCart(recipeList.value !! [pos])
     }
 
+    fun removeFromCart(pos: Int) {
+        _repository.removeFromCart(recipeList.value !! [pos])
+    }
+
     //quotes
     private fun getFoodQuote() {
         viewModelScope.launch {
