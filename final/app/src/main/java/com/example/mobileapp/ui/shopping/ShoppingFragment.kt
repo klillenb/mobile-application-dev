@@ -8,17 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentShoppingBinding
+import com.example.mobileapp.dto.ShoppingCartDto
 
 class ShoppingFragment : Fragment() {
 
     private var _binding: FragmentShoppingBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var shoppingCartItemViewAdapter: ShoppingCartItemViewAdapter
-    private lateinit var items: MutableList<ShoppingCartItem>
+    private lateinit var items: MutableList<ShoppingCartDto>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +30,7 @@ class ShoppingFragment : Fragment() {
         items = mutableListOf()
 
         for (i in 0..25) {
-            items.add(ShoppingCartItem("Hello world #"))
+            items.add(ShoppingCartDto("Hello world #"))
         }
 
         shoppingCartItemViewAdapter = ShoppingCartItemViewAdapter(items)
