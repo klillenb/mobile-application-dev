@@ -13,7 +13,8 @@ Retsepte hoitakse MondoDB andmebaasis ja neile saadakse ligi Cyclic.sh serveri a
 ## Avaleht
 
 ## Retseptiloend
-Retseptiloendis kuvatakse kõiki andmebaasis esinevaid retsepte. Andmed on esitatud RecyclerView abil, mis seob andmeloendi sisu ViewHolderiga. Retsepte on võimalik märkida lemmikuks. Sellisel juhul salvestatakse SharedViewModel kaudu valitud reptsepti id SharedPreferences all asuvasse serialiseeritud loendisse. Kui rakendust avades tõmmatakse serverist retseptid, siis kontrollitakse, kas need on märgitud kohalikuks lemmikuks ja lisatakse andmeobjektile vastav info (RecipeDto.fave=true). Sarnaselt toimetatakse ka ostukärru lisamisel. 
+Retseptiloendis kuvatakse kõiki andmebaasis esinevaid retsepte. Andmed on esitatud RecyclerView abil, mis seob adapteri abil andmeloendi sisu ViewHolderiga. Andmeid hoitakse repositooriumis LiveData'na, mille muutumist jälgitakse adapteris. Kui andmed muutuvad, siis värskendab adapter automaatselt vaadet.
+Retsepte on võimalik märkida lemmikuks. Sellisel juhul salvestatakse SharedViewModel kaudu valitud reptsepti id SharedPreferences all asuvasse serialiseeritud loendisse. Kui rakendust avades tõmmatakse serverist retseptid, siis kontrollitakse, kas need on märgitud kohalikuks lemmikuks ja lisatakse andmeobjektile vastav info (RecipeDto.fave=true). Sarnaselt toimetatakse ka ostukärru lisamisel. 
 Retseptile vajutades avaneb detailne vaade.
 
 ## Retsepti detailne vaade 
