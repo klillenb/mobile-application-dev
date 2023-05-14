@@ -46,6 +46,7 @@ Lisab andmebaasi uue retsepti kirje.
 Kustutab andmebaasist vastava id'ga kirje.
 
 ## Avaleht
+Avalehel kuvatakse "Päeva retsept" ja tsitaat. Päeva retsept valitakse suvaliselt SharedPreferences'i talletatud retseptide seast. KUvatakse ainult pildi ja retsept nime. Pildi suurus muutub selliselt, et see mahuks ilma pildi suuruste suhet muutmata etteantud alale ära. Tsitaadi alal kuvatakse andmebaasist päringuna saadud suvaline tsitaat. Tsitaadi teksti suurus muutub selliselt, et see mahuks alati etteantud ala piiridesse. Päeva retseptile vajutades avaneb detailne vaade.
 
 ## Retseptiloend
 
