@@ -2,6 +2,20 @@
 
 Android Studio Electric Eel | 2022.1.1, SDK 29, 33, Kotlin
 
+## Install
+Rakenduse katsetamiseks tuleb kõigepealt veenduda, et on olemas sobiv IDE, näiteks Android Studio. Klooni repo ja ava see "final" kaustas. Seadista endale emulaator koos min SDK 29, rohkem infot - https://developer.android.com/studio/run/managing-avds \
+Kui need sammud on tehtud, siis lihtsalt "Run App" loodud emulaatoris. \
+Oma enda telefonis kasutamiseks tuleb kõigepealt telefonis lubada "Arendaja Valikud", seda saab teha nt nii:
+ * Sätted -> Teave telefoni kohta -> Tarkvara teave
+ * Järgu number (ing. k. Build number) vajutada 7 korda, ilmub ka popup mis ütleb kui palju vajutusi on jäänud
+
+Nüüd kui Arendaja Valikud on sisse lülitatud, siis saab seadme lisada Android Studiosse:
+ * Device Manager
+ * Physical -> Pair using WiFi (Telefon peab olema arvutiga samas WiFi võrgus)
+ * Telefonis mine Arendaja Valikud - Seadme sidumine QR-koodiga
+ * Scan ja rakenduse installimise protsessi peaksid IDEst nägema, tõrgete korral on Google suureks sõbraks
+
+
 ## Rakenduse arhitektuur
 
 Rakendus põhineb Model–View–Viewmodel (MVVM) lahendusel, mis võimaldab andmete haldamise lahutada kasutusliidesest. Rakendusel on üks Activity, mille sees vahetuvad rakenduses navigeerimisel sisufragmendid. Kõik fragmendid kasutavad andmete saamiseks ja nende töötluseks ühist ViewModel'it (SharedViewModel), mille kaudu käib andmerepositooriumi haldamine. See tagab nii sujuva andmete liikumise kui ka andmete säilimise rakenduses navigeerides.
