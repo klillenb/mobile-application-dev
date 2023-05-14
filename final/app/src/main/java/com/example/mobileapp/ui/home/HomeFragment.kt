@@ -22,12 +22,8 @@ import kotlin.random.Random
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    //ühised andmed
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -36,14 +32,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel =
-            //siin all peaks HomeViewModel asemel olema sharedViewModel (sisu tuleks vajadusel ümber tõsta)
-            ViewModelProvider(this)[sharedViewModel::class.java]
+        val homeViewModel = ViewModelProvider(this)[sharedViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //homeViewModel.getData()
         val quoteTextView: TextView = binding.quote
         val authorTextView: TextView = binding.author
         val recipeOfTheDayPic: ImageView = binding.recipeOfDayPic
@@ -66,7 +59,7 @@ class HomeFragment : Fragment() {
             recipeOfTheDayText.text = it[randomNr].name
             if(it[randomNr].image.isNullOrEmpty()) recipeOfTheDayPic.setImageResource(R.mipmap.ic_launcher)
             else {
-                var image = it[randomNr].image // no need for fancy regex
+                var image = it[randomNr].image
                 Glide.with(recipeOfTheDayPic.context)
                     .asBitmap()
                     .load(Base64.decode(image, Base64.DEFAULT))
@@ -74,9 +67,6 @@ class HomeFragment : Fragment() {
                     .into(recipeOfTheDayPic)
             }
         }
-
-
-
 
         return root
     }

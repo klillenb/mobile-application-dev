@@ -94,7 +94,6 @@ class UploadFragment : Fragment() {
                 instructions.text.toString(), description.text.toString(), imageBase64)
 
             uploadViewModel.saveData(newRecipeDto)
-            uploadViewModel.getData()
         } else Toast.makeText(context, "Please fill all fields!", Toast.LENGTH_SHORT).show()
     }
 
@@ -167,10 +166,10 @@ class UploadFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        name.setText("")
-        ingredients.setText("")
-        instructions.setText("")
-        description.setText("")
+        name.text.clearSpans()
+        ingredients.text.clearSpans()
+        instructions.text.clearSpans()
+        description.text.clearSpans()
         _binding = null
     }
 
