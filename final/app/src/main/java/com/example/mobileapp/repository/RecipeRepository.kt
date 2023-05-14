@@ -12,9 +12,12 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-
 //https://chris-ribetti.medium.com/android-viewmodel-livedata-repository-and-di-complete-and-super-quick-5a7d78fa7946
 
+/**
+ * Repository to contain request handling logic related to recipe data.
+ * Also manages recipe saving / loading to / from sharedPreferences.
+ */
 class RecipeRepository(context: Context) : CoroutineScope {
     private val job = Job()
     private val _recipes: MutableLiveData<List<RecipeDto>> = MutableLiveData()
@@ -111,7 +114,6 @@ class RecipeRepository(context: Context) : CoroutineScope {
     }
 
     fun toggleAddToCart(recipe: RecipeDto){
-        //Log.d("STATUS", "toggleAddToCart")
         _recipes.value?.find { it._id == recipe._id}?.inCart = !recipe.inCart
         this._recipes.postValue(_recipes.value)
 
