@@ -71,7 +71,6 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 val result = withContext(Dispatchers.IO) {
                     RecipeApi.retrofitService.addRecipe(recipe)
                 }
-                println(result.body())
                 if (result.code() == 200) {
                     Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
                 } else {

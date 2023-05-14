@@ -41,10 +41,9 @@ class RecipeViewHolder(
 
         if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)
         else {
-            var image = recipeDto.image.split("base64")[1] // no need for fancy regex
-            Glide.with(itemView.context)
+                Glide.with(itemView.context)
                 .asBitmap()
-                .load(Base64.decode(image, Base64.DEFAULT))
+                .load(Base64.decode(recipeDto.image, Base64.DEFAULT))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(picture)
         }
