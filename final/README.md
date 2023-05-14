@@ -78,3 +78,4 @@ Retseptile vajutades avaneb detailne vaade.
  * Moshi: Teek, mis aitab JSON formaati Java või Kotlini objektideks muuta.
  * Gson: Teek, mis aitab JSON formaati Java või Kotlini objektideks muuta ja vastupidi.
  * Glide: Teek, mis aitab Androidis pildide laadimist hõlbustada.
+ * Retrofit2: REST klient, mille kaudu tehti JSON päringuid.
