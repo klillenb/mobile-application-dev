@@ -63,14 +63,10 @@ class UploadFragment : Fragment() {
             var imageBase64: String? = ""
 
             // primitive form validation
-            if(name.text.toString().isEmpty())
-                Toast.makeText(context, "Please insert recipe name!", Toast.LENGTH_SHORT).show()
-            if(ingredients.text.toString().isEmpty())
-                Toast.makeText(context, "Please insert recipe ingredients!", Toast.LENGTH_SHORT).show()
-            if(instructions.text.toString().isEmpty())
-                Toast.makeText(context, "Please insert recipe instructions!", Toast.LENGTH_SHORT).show()
-            if(description.text.toString().isEmpty())
-                Toast.makeText(context, "Please insert recipe description!", Toast.LENGTH_SHORT).show()
+            if(name.text.toString().isEmpty()) name.error = "Recipe name cannot be empty!"
+            if(ingredients.text.toString().isEmpty()) ingredients.error = "Ingredients cannot be empty!"
+            if(instructions.text.toString().isEmpty()) instructions.error = "Instructions cannot be empty!"
+            if(description.text.toString().isEmpty()) description.error = "Description cannot be empty!"
 
             if(name.text.toString().isNotEmpty() && ingredients.text.toString().isNotEmpty()
                 && instructions.text.toString().isNotEmpty() && description.text.toString().isNotEmpty()) {
@@ -88,7 +84,7 @@ class UploadFragment : Fragment() {
                     instructions.text.toString(), description.text.toString(), imageBase64)
                 uploadViewModel.saveData(newRecipeDto)
                 uploadViewModel.getData()
-            }
+            } else Toast.makeText(context, "Please fill all fields!", Toast.LENGTH_SHORT).show()
         }
 
         return view
