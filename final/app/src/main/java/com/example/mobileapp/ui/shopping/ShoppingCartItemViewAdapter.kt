@@ -6,8 +6,14 @@ import com.example.mobileapp.R
 import android.view.ViewGroup
 import android.view.View
 import android.widget.*
+import com.example.mobileapp.dto.ShoppingCartDto
 
-class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartItem>): RecyclerView.Adapter<ShoppingCartItemViewAdapter.ShoppingCartViewHolder>() {
+/**
+ * Responsible for generating shopping list display
+ */
+class ShoppingCartItemViewAdapter(
+    private val items: MutableList<ShoppingCartDto>
+    ): RecyclerView.Adapter<ShoppingCartItemViewAdapter.ShoppingCartViewHolder>() {
 
     class ShoppingCartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val checkBox: CheckBox
@@ -36,7 +42,7 @@ class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartIte
     }
 
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
-        val item: ShoppingCartItem = items[position]
+        val item: ShoppingCartDto = items[position]
         holder.textView.text = "${item.name} $position"
         holder.checkBox.isChecked = item.done
         holder.checkBox.setOnCheckedChangeListener {
@@ -53,7 +59,7 @@ class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartIte
 
     fun completeAllItems() {
         items.forEach {
-            item: ShoppingCartItem ->
+            item: ShoppingCartDto ->
                 item.done = true
         }
         notifyItemRangeChanged(0, items.size)
@@ -61,7 +67,7 @@ class ShoppingCartItemViewAdapter(private val items: MutableList<ShoppingCartIte
 
     fun deleteDoneItems() {
         items.removeIf {
-            item: ShoppingCartItem ->
+            item: ShoppingCartDto ->
                 item.done
         }
         notifyDataSetChanged()

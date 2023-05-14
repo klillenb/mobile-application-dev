@@ -40,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:textSize="22.5sp"
+                android:fontFamily="@font/baloo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/checkBox_shopping_item"
                 app:layout_constraintTop_toTopOf="parent" />
