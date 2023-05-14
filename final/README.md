@@ -80,6 +80,8 @@ Retseptile vajutades avaneb detailne vaade.
 
 ## Retsepti lisamine
 
+Retsepti lisamise lehel kuvatakse “select image” nupp, mille kaudu saad valida olemasoleva pildi galeriist või teha kaamera kaudu uue pildi. Valitud pilt kuvatakse suurelt lehe ülaosas. Allpool saad lisada oma retsepti pealkirja, koostisosad, valmistamise juhendi ja retsepti kirjelduse. Kui vajalikud väljad on täidetud, saad retsepti salvestada.
+
 ## Ostukäru
 
 ## Teegid
