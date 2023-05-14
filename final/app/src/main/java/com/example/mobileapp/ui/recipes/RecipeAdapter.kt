@@ -16,6 +16,9 @@ import android.util.Base64
 import com.bumptech.glide.Glide
 import kotlin.text.Typography.ellipsis
 
+/**
+ * Responsible for generating recipe list display.
+ */
 class RecipeViewHolder(
     view: View,
     listener: RecipeAdapter.OnItemClickListener
@@ -39,10 +42,10 @@ class RecipeViewHolder(
         name.text = recipeDto.name
 
         val descriptionLen = 120
-        if(recipeDto.description.length>descriptionLen+5){
+        if(recipeDto.description.length > descriptionLen + 5){
             val inputString : String = recipeDto.description
             val pos: Int = inputString.indexOf(" ", descriptionLen)
-            if(pos>=descriptionLen){
+            if(pos >= descriptionLen){
                 description.text = recipeDto.description.substring(0, pos).plus(ellipsis)
             } else {
                 description.text = recipeDto.description
@@ -53,6 +56,7 @@ class RecipeViewHolder(
 
         // ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
+        // if there is no image from DB then display default android image
         if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)
         else {
             Glide.with(itemView.context)
