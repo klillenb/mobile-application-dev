@@ -31,7 +31,7 @@ Tagastab ühe toiduga seotud tsitaadi koos autoriga. Andmed pärinevad NinjaAPI 
 ```
 
 Tagastab kõik andmebaasis olevad retseptid - nimi, koostisosad, juhised, kirjeldus, pilt. \
-Pildid on kodeeritud base64 formaati, väikese kirjete hulga tõttu on see hetkel toimiv lahendus, kuid kui retseptikirjeid oleks rohkem, siis peaks kindlasti mõtlema eraldi failihalduse peale, sest nende sõnede pikkuste tõttu saavad päringu kiirused kannatada. \
+Pildid on kodeeritud base64 formaati, väikese kirjete hulga tõttu on see hetkel toimiv lahendus, kuid kui retseptikirjeid oleks rohkem, siis peaks kindlasti mõtlema eraldi failihalduse peale, sest nende sõnede pikkuste tõttu saavad päringu kiirused kannatada.
 
 ```
 /recipe/add
