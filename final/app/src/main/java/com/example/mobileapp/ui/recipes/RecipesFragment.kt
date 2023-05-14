@@ -42,26 +42,21 @@ class RecipesFragment : Fragment() {
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
-                //siia mingi funktsioon, nt et avada detailne vaade (klikikuulaja on adapetris lahti ühendatud)
                 recipeAdapter.notifyItemChanged(position)
             }
 
             override fun onStarClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
                 recipeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
             override fun onCartClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid kärule", Toast.LENGTH_SHORT).show()
                 recipeViewModel.toggleAddToCart(position)
                 recipeAdapter.notifyItemChanged(position)
             }
         })
 
         recyclerView.adapter = recipeAdapter
-
 
         val recipeDtoObserver = Observer<List<RecipeDto>>{ recipes ->
             recipeAdapter.submitList(recipes)
@@ -70,6 +65,7 @@ class RecipesFragment : Fragment() {
         recipeViewModel.showProgress.observe(viewLifecycleOwner, Observer{
             binding.recipeProgressBar.visibility = if(it) View.VISIBLE else View.GONE
         })
+
         return root
     }
 
