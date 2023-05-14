@@ -8,7 +8,7 @@ package com.example.mobileapp.dto
  * @property inCart Relevant for application logic, not forwarded to server
  */
 data class RecipeDto(
-    val _id: String,
+    val _id: String?,
     val name: String,
     val ingredients: List<String>,
     val instructions: String,

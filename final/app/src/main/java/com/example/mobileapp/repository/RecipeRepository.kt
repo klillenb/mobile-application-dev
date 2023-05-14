@@ -88,12 +88,14 @@ class RecipeRepository(context: Context) : CoroutineScope {
         launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    RecipeApi.retrofitService.removeRecipe(recipe._id)
+                    recipe._id?.let { RecipeApi.retrofitService.removeRecipe(it) }
                 }
-                if (result.code() == 200) {
-                    Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                if (result != null) {
+                    if (result.code() == 200) {
+                        Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                    }
                 }
             } catch (e: Exception) {
                 Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
