@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 //import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobileapp.R
 import com.example.mobileapp.databinding.FragmentRecipesBinding
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.model.SharedViewModel
@@ -39,14 +41,17 @@ class RecipesFragment : Fragment() {
 
         val recipeAdapter = RecipeAdapter()
 
-
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                recipeAdapter.notifyItemChanged(position)
+                //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
+                val recipe = recipeAdapter.currentList[position]
+                showRecipeDetail(recipe)
+
             }
 
             override fun onStarClick(position: Int) {
                 recipeViewModel.toggleFave(position)
+
                 recipeAdapter.notifyItemChanged(position)
             }
 
@@ -72,5 +77,14 @@ class RecipesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun showRecipeDetail(recipe: RecipeDto) {
+        val recipeDetailFragment = RecipeDetailFragment.newInstance(recipe)
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.container, recipeDetailFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

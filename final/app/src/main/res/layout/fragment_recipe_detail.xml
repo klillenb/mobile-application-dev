@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textviewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Recipe Title"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageviewRecipe"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="@string/picture_item_recipe_list"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="@id/description_recipe_list_item"
+        app:layout_constraintTop_toTopOf="@id/description_recipe_list_item"
+
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/textviewIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ingredients:"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textviewInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Instructions:"
+        android:padding="16dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textviewdescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Instructions:"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+</ScrollView>

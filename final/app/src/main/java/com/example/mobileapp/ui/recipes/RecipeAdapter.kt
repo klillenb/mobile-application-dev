@@ -1,5 +1,4 @@
 package com.example.mobileapp.ui.recipes
-
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
@@ -32,17 +31,19 @@ class RecipeViewHolder(
     private val star: ImageView = view.findViewById(R.id.star_recipe_list_item)
     private val cart: ImageView = view.findViewById(R.id.addToCart_recipe_list_item)
 
+
     init {
         //kogu elemendi kuulaja
-        //itemView.setOnClickListener { listener.onItemClick(adapterPosition) }
+        itemView.setOnClickListener { listener.onItemClick(adapterPosition) }
         star.setOnClickListener { listener.onStarClick(adapterPosition) }
         cart.setOnClickListener { listener.onCartClick(adapterPosition) }
     }
+    //@SuppressLint("SetTextI18n")
     fun bind(recipeDto: RecipeDto){
         name.text = recipeDto.name
 
         val descriptionLen = 120
-        if(recipeDto.description.length > descriptionLen + 5){
+        if(recipeDto.description!!.length>descriptionLen+5){
             val inputString : String = recipeDto.description
             val pos: Int = inputString.indexOf(" ", descriptionLen)
             if(pos >= descriptionLen){
@@ -54,9 +55,11 @@ class RecipeViewHolder(
             description.text = recipeDto.description
         }
 
+
         // ingredients.text = "Ingredients: ${recipeDto.ingredients.joinToString()}"
 
         // if there is no image from DB then display default android image
+
         if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)
         else {
             Glide.with(itemView.context)
