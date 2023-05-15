@@ -53,7 +53,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
                 showProgress.postValue(true)
                 val result = RecipeApi.retrofitService.getQuote()
                 if(result.code() == 200){ // .isSuccessful is any code in range 200-300, body is on HTTP 200
-                    _quote.value = result.body()?.get(0)
+                    _quote.value = result.body()!![0]
                 } else {
                     Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
                 }
@@ -61,7 +61,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
                 println(e)
                 Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
             } finally {
-                showProgress.postValue(false)
+                if(quote.isInitialized) showProgress.postValue(false)
             }
         }
     }

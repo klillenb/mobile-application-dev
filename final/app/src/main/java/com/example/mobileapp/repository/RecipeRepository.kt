@@ -55,6 +55,8 @@ class RecipeRepository(context: Context) : CoroutineScope {
                         }
                     }
                     _recipes.value = result.body()
+                } else if (result.code() == 500) {
+                    Toast.makeText(context, "Internal server error!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Network error!", Toast.LENGTH_SHORT).show()
                 }
@@ -62,7 +64,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 println(e)
                 Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
             } finally {
-                showProgress.postValue(false)
+                if(recipes.isInitialized) showProgress.postValue(false)
             }
         }
     }
@@ -75,10 +77,13 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 }
                 if (result.code() == 200) {
                     Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
+                } else if (result.code() == 413) {
+                    Toast.makeText(context, "Response from server: Image is too large!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, result.body(), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
+                println(e.printStackTrace())
                 Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
             }
         }

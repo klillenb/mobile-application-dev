@@ -1,5 +1,6 @@
 package com.example.mobileapp.ui.upload
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -8,6 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media
 import android.util.Base64
@@ -27,6 +30,7 @@ import com.example.mobileapp.model.SharedViewModel
 import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+
 
 class UploadFragment : Fragment() {
     private lateinit var selectImageButton: Button
@@ -48,6 +52,15 @@ class UploadFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // useful for seeing resource usage violations
+        /*
+        StrictMode.setVmPolicy(
+            VmPolicy.Builder(StrictMode.getVmPolicy())
+                .detectLeakedClosableObjects()
+                .build()
+        )
+         */
+
         _binding = FragmentUploadBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -94,9 +107,11 @@ class UploadFragment : Fragment() {
                 instructions.text.toString(), description.text.toString(), imageBase64)
 
             uploadViewModel.saveData(newRecipeDto)
+            uploadViewModel.getData()
         } else Toast.makeText(context, "Please fill all fields!", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("Recycle")
     private fun encodeImageToBase64(imagePath: Uri): String {
         var fis: FileInputStream? = null
         try {
@@ -104,12 +119,16 @@ class UploadFragment : Fragment() {
         } catch (e: FileNotFoundException) {
             println(e.stackTrace.toString())
         }
-        val imageBitmap: Bitmap = BitmapFactory.decodeStream(fis)
-        val baos = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val bytes: ByteArray = baos.toByteArray()
+        if(fis != null) {
+            val imageBitmap: Bitmap = BitmapFactory.decodeStream(fis)
+            val baos = ByteArrayOutputStream()
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val bytes: ByteArray = baos.toByteArray()
+            fis.close()
 
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
+            return Base64.encodeToString(bytes, Base64.DEFAULT)
+        }
+        return ""
     }
 
     private fun showImagePickerOptions() {
