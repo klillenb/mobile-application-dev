@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/orange_light"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
@@ -57,7 +60,7 @@
                 <ImageView
                     android:id="@+id/recipeOfDayPic"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="250dp"
                     android:scaleType="centerCrop"></ImageView>
 
                 <TextView
@@ -95,6 +98,7 @@
             android:layout_height="160dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -138,3 +142,4 @@
 
 
 </LinearLayout>
+</ScrollView>
