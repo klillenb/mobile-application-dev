@@ -79,6 +79,9 @@ Retseptile vajutades avaneb detailne vaade.
 
 ## Retsepti detailne vaade
 
+Vajutades retsepti loendi lehekülje alt mõnele huvi pakkuvale retseptile, navigeeritakse sind selle retsepti detailsemale vaatele.
+Seal on näha valitud retsepti pealkiri, pilt, koostisosad, valmistamise juhend ja retsepti kirjeldus.
+
 ## Retsepti lisamine
 
 Retsepti lisamise lehel kuvatakse “select image” nupp, mille kaudu saad valida olemasoleva pildi galeriist või teha kaamera kaudu uue pildi. Valitud pilt kuvatakse suurelt lehe ülaosas. Allpool saad lisada oma retsepti pealkirja, koostisosad, valmistamise juhendi ja retsepti kirjelduse. Kui vajalikud väljad on täidetud, saad retsepti salvestada.
