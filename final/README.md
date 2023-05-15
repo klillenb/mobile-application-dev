@@ -101,6 +101,6 @@ Retsepti lisamise lehel kuvatakse “select image” nupp, mille kaudu saad vali
 
 ## Kuvatõmmised
 
-Avakuva | Retsepti detailivaade | Retsepti lisamine
-:-------------------------:|:-------------------------:|:-------------------------:
-![Home](https://github.com/klillenb/mobile-application-dev/assets/90237413/56fe8e51-6525-4b53-9af2-5206f05a2b88) | ![Recipe Details](https://github.com/klillenb/mobile-application-dev/assets/90237413/dbe5ee89-39a6-40dd-adba-3c8c33ab0197) | ![Upload Recipe](https://github.com/klillenb/mobile-application-dev/assets/90237413/1ca2b8af-af00-459e-929e-da45c6d929ff)
+|                                                     Avakuva                                                      |                                                   Retsepti detailivaade                                                    |                                                     Retsepti lisamine                                                     |
+|:----------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------:|
+| ![Home](https://github.com/klillenb/mobile-application-dev/assets/90237413/56fe8e51-6525-4b53-9af2-5206f05a2b88) | ![Recipe Details](https://github.com/klillenb/mobile-application-dev/assets/90237413/dbe5ee89-39a6-40dd-adba-3c8c33ab0197) | ![Upload Recipe](https://github.com/klillenb/mobile-application-dev/assets/90237413/1ca2b8af-af00-459e-929e-da45c6d929ff) |
