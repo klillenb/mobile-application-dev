@@ -34,7 +34,8 @@ Rakendus põhineb Model–View–Viewmodel (MVVM) lahendusel, mis võimaldab and
 https://recipe-api.cyclic.app
 ```
 
-Tegemist on ühe varasema projekti raames loodud tagarakendusega, mida on kohandatud mobiilrakenduse jaoks. Retsepte hoitakse MondoDB andmebaasis ja neile saadakse ligi Cyclic.sh hostil oleva Node.js serveri abil, mille koodi majutatakse Githubis (https://github.com/knyrr/recipe-api).
+Tegemist on ühe varasema projekti raames loodud tagarakendusega, mida on kohandatud mobiilrakenduse jaoks. Retsepte hoitakse MondoDB andmebaasis ja neile saadakse ligi Cyclic.sh hostil oleva Node.js serveri abil, mille koodi majutatakse Githubis (https://github.com/knyrr/recipe-api). \
+Hosti poolt on päringutele **6MB piirang** peale pandud, seega võib juhtuda, et salvestamine ei õnnestu.
 
 ### API päringud
 
