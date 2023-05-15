@@ -21,7 +21,6 @@ class RecipeViewHolder(
 ) : RecyclerView.ViewHolder(view) {
 
     private val name : TextView = view.findViewById(R.id.name_recipe_list_item)
-    private val ingredients : TextView = view.findViewById(R.id.ingredients_recipe_list_item)
     private val description : TextView = view.findViewById(R.id.description_recipe_list_item)
     private val picture : ImageView = view.findViewById(R.id.picture_recipe_list_item)
     private val star: ImageView = view.findViewById(R.id.star_recipe_list_item)
@@ -30,7 +29,7 @@ class RecipeViewHolder(
 
     init {
         //kogu elemendi kuulaja
-        itemView.setOnClickListener { listener.onItemClick(adapterPosition) }
+        itemView.setOnClickListener { listener.onItemClick(adapterPosition, view) }
         star.setOnClickListener { listener.onStarClick(adapterPosition) }
         cart.setOnClickListener { listener.onCartClick(adapterPosition) }
     }
@@ -43,7 +42,7 @@ class RecipeViewHolder(
 
         if(recipeDto.image.isNullOrEmpty()) picture.setImageResource(R.mipmap.ic_launcher)
         else {
-            var image = recipeDto.image.split("base64")[1] // no need for fancy regex
+            val image = recipeDto.image // no need for fancy regex
             Glide.with(itemView.context)
                 .asBitmap()
                 .load(Base64.decode(image, Base64.DEFAULT))
@@ -73,7 +72,7 @@ class RecipeAdapter() : ListAdapter<RecipeDto, RecipeViewHolder>(DIFF_CONFIG) {
 
     private lateinit var onItemClickListener: OnItemClickListener
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(position: Int, view: View)
         fun onStarClick(position: Int)
         fun onCartClick(position: Int)
     }
@@ -104,5 +103,6 @@ class RecipeAdapter() : ListAdapter<RecipeDto, RecipeViewHolder>(DIFF_CONFIG) {
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 }

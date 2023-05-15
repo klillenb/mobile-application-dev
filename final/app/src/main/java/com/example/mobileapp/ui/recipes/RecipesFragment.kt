@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobileapp.R
 import com.example.mobileapp.databinding.FragmentRecipesBinding
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.model.SharedViewModel
@@ -48,11 +48,14 @@ class RecipesFragment : Fragment() {
 
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
-            override fun onItemClick(position: Int) {
+            override fun onItemClick(position: Int, view: View) {
                 //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
                 val recipe = recipeAdapter.currentList[position]
-                showRecipeDetail(recipe)
-                recipeAdapter.notifyItemChanged(position)
+                //showRecipeDetail(recipe)
+                //recipeAdapter.notifyItemChanged(position)
+
+                val action = RecipesFragmentDirections.actionNavigationRecipesToRecipeDetailFragment(argRecipeDetail = recipe)
+                view.findNavController().navigate(action)
             }
 
             override fun onStarClick(position: Int) {
@@ -83,11 +86,11 @@ class RecipesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    private fun showRecipeDetail(recipe: RecipeDto) {
+/*    private fun showRecipeDetail(recipe: RecipeDto) {
         val recipeDetailFragment = RecipeDetailFragment.newInstance(recipe)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.container, recipeDetailFragment)
             .addToBackStack(null)
             .commit()
-    }
+    }*/
 }
