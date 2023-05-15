@@ -60,6 +60,7 @@ Pildid on kodeeritud base64 formaati, väikese kirjete hulga tõttu on see hetke
 /recipe/add
 ```
 
+
 Lisab andmebaasi uue retsepti kirje.
 
 ```
@@ -70,6 +71,8 @@ Kustutab andmebaasist vastava id'ga kirje.
 
 ## Avaleht
 Avalehel kuvatakse "Päeva retsept" ja tsitaat. Päeva retsept valitakse suvaliselt SharedPreferences'i talletatud retseptide seast. Kuvatakse ainult pilti ja retsept nime. Pildi suurus muutub selliselt, et see mahuks ilma pildi suuruste suhet muutmata etteantud alale ära. Tsitaadi alal kuvatakse serverist päringuna saadud tsitaat. Tsitaadi teksti suurus muutub selliselt, et see mahuks alati etteantud ala piiridesse. Päeva retseptile vajutades avaneb detailne vaade.
+
+![Home](https://github.com/klillenb/mobile-application-dev/assets/90237413/56fe8e51-6525-4b53-9af2-5206f05a2b88)
 
 ## Retseptiloend
 
@@ -82,9 +85,13 @@ Retseptile vajutades avaneb detailne vaade.
 Vajutades retsepti loendi lehekülje alt mõnele huvi pakkuvale retseptile, navigeeritakse sind selle retsepti detailsemale vaatele.
 Seal on näha valitud retsepti pealkiri, pilt, koostisosad, valmistamise juhend ja retsepti kirjeldus.
 
+![Recipe Details](https://github.com/klillenb/mobile-application-dev/assets/90237413/dbe5ee89-39a6-40dd-adba-3c8c33ab0197)
+
 ## Retsepti lisamine
 
 Retsepti lisamise lehel kuvatakse “select image” nupp, mille kaudu saad valida olemasoleva pildi galeriist või teha kaamera kaudu uue pildi. Valitud pilt kuvatakse suurelt lehe ülaosas. Allpool saad lisada oma retsepti pealkirja, koostisosad, valmistamise juhendi ja retsepti kirjelduse. Kui vajalikud väljad on täidetud, saad retsepti salvestada.
+
+![Upload Recipe](https://github.com/klillenb/mobile-application-dev/assets/90237413/1ca2b8af-af00-459e-929e-da45c6d929ff)
 
 ## Ostukäru
 
