@@ -119,5 +119,6 @@ class RecipeAdapter : ListAdapter<RecipeDto, RecipeViewHolder>(DIFF_CONFIG) {
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 }
