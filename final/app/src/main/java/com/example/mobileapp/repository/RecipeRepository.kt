@@ -131,6 +131,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
         saveData("recipes_in_cart", recipesInCart)
     }
 
+    //SharedPreference'isse salvestamine ja sealt lugemine andmete seriliseerimise abil
     private fun saveData(key: String, list: List<String>) {
         val serializedList = gson.toJson(list)
         sharedPreferences.edit().putString(key, serializedList).apply()

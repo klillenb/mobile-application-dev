@@ -36,6 +36,15 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
+        android:id="@+id/textviewdescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/recipe_details_instructions"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textviewIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,14 +61,7 @@
         android:text="@string/recipe_details_instructions"
         android:padding="16dp"
         android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textviewdescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/recipe_details_instructions"
-        android:padding="16dp"
-        android:textStyle="bold" />
+
 
 </LinearLayout>
 </ScrollView>
