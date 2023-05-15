@@ -11,6 +11,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+    </Button>
+
     <TextView
         android:id="@+id/textviewTitle"
         android:layout_width="match_parent"
