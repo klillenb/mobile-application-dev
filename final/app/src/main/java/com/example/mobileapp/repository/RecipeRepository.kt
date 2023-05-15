@@ -63,7 +63,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
                 println(e)
                 Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show()
             } finally {
-                if(recipes.isInitialized) showProgress.postValue(false)
+                showProgress.postValue(false)
             }
         }
     }
