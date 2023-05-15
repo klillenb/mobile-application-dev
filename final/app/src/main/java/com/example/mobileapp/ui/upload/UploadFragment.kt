@@ -1,5 +1,6 @@
 package com.example.mobileapp.ui.upload
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -8,6 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media
 import android.util.Base64
@@ -21,12 +24,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import com.example.mobileapp.R
+import com.example.mobileapp.databinding.FragmentUploadBinding
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.model.SharedViewModel
 import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.io.FileNotFoundException
+
 
 class UploadFragment : Fragment() {
     private lateinit var selectImageButton: Button
@@ -37,59 +41,77 @@ class UploadFragment : Fragment() {
     private lateinit var ingredients: EditText
     private lateinit var instructions: EditText
     private lateinit var description: EditText
+
+    private var _binding: FragmentUploadBinding? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val uploadViewModel = ViewModelProvider(this)[sharedViewModel::class.java]
-        val view = inflater.inflate(R.layout.fragment_upload, container, false)
+        // useful for seeing resource usage violations
+        /*
+        StrictMode.setVmPolicy(
+            VmPolicy.Builder(StrictMode.getVmPolicy())
+                .detectLeakedClosableObjects()
+                .build()
+        )
+         */
 
-        saveRecipeButton = view.findViewById(R.id.save)
-        selectImageButton = view.findViewById(R.id.select_image)
-        imageView = view.findViewById(R.id.imageview)
+        _binding = FragmentUploadBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        saveRecipeButton = binding.save
+        selectImageButton = binding.selectImage
+        imageView = binding.imageview
+
+        name = binding.title
+        ingredients = binding.ingredients
+        instructions = binding.instructions
+        description = binding.description
 
         selectImageButton.setOnClickListener {
             showImagePickerOptions()
         }
 
-        saveRecipeButton.setOnClickListener {
-            name = view.findViewById(R.id.title)
-            ingredients = view.findViewById(R.id.ingredients)
-            instructions = view.findViewById(R.id.instructions)
-            description = view.findViewById(R.id.description)
-            var imageBase64: String? = ""
+        saveRecipeButton.setOnClickListener { saveRecipeToDb() }
 
-            // primitive form validation
-            if(name.text.toString().isEmpty()) name.error = "Recipe name cannot be empty!"
-            if(ingredients.text.toString().isEmpty()) ingredients.error = "Ingredients cannot be empty!"
-            if(instructions.text.toString().isEmpty()) instructions.error = "Instructions cannot be empty!"
-            if(description.text.toString().isEmpty()) description.error = "Description cannot be empty!"
-
-            if(name.text.toString().isNotEmpty() && ingredients.text.toString().isNotEmpty()
-                && instructions.text.toString().isNotEmpty() && description.text.toString().isNotEmpty()) {
-                if(this::selectedImageUri.isInitialized) {
-                    try {
-                        imageBase64 = encodeImageToBase64(Uri.parse(selectedImageUri.toString()))
-                        println(Uri.parse(selectedImageUri.toString()))
-                    } catch (e: Exception) {
-                        println(e)
-                        Toast.makeText(context, "Something went wrong while converting image for upload!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                val newRecipeDto = RecipeDto(null,
-                    name.text.toString(), listOf(ingredients.text.toString()),
-                    instructions.text.toString(), description.text.toString(), imageBase64)
-                uploadViewModel.saveData(newRecipeDto)
-                uploadViewModel.getData()
-            } else Toast.makeText(context, "Please fill all fields!", Toast.LENGTH_SHORT).show()
-        }
-
-        return view
+        return root
     }
 
+    private fun saveRecipeToDb() {
+        val uploadViewModel = ViewModelProvider(this)[sharedViewModel::class.java]
+        var imageBase64: String? = ""
+
+        // primitive form validation
+        if(name.text.toString().isEmpty()) name.error = "Recipe name cannot be empty!"
+        if(ingredients.text.toString().isEmpty()) ingredients.error = "Ingredients cannot be empty!"
+        if(instructions.text.toString().isEmpty()) instructions.error = "Instructions cannot be empty!"
+        if(description.text.toString().isEmpty()) description.error = "Description cannot be empty!"
+
+        if(name.text.toString().isNotEmpty() && ingredients.text.toString().isNotEmpty()
+            && instructions.text.toString().isNotEmpty() && description.text.toString().isNotEmpty()) {
+            if(this::selectedImageUri.isInitialized) {
+                try {
+                    imageBase64 = encodeImageToBase64(Uri.parse(selectedImageUri.toString()))
+                } catch (e: Exception) {
+                    println(e)
+                    Toast.makeText(context, "Something went wrong while converting image for upload!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            val newRecipeDto = RecipeDto(null,
+                name.text.toString(), listOf(ingredients.text.toString()),
+                instructions.text.toString(), description.text.toString(), imageBase64)
+
+            uploadViewModel.saveData(newRecipeDto)
+            uploadViewModel.getData()
+        } else Toast.makeText(context, "Please fill all fields!", Toast.LENGTH_SHORT).show()
+    }
+
+    @SuppressLint("Recycle")
     private fun encodeImageToBase64(imagePath: Uri): String {
         var fis: FileInputStream? = null
         try {
@@ -97,12 +119,16 @@ class UploadFragment : Fragment() {
         } catch (e: FileNotFoundException) {
             println(e.stackTrace.toString())
         }
-        val imageBitmap: Bitmap = BitmapFactory.decodeStream(fis)
-        val baos = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val bytes: ByteArray = baos.toByteArray()
+        if(fis != null) {
+            val imageBitmap: Bitmap = BitmapFactory.decodeStream(fis)
+            val baos = ByteArrayOutputStream()
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val bytes: ByteArray = baos.toByteArray()
+            fis.close()
 
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
+            return Base64.encodeToString(bytes, Base64.DEFAULT)
+        }
+        return ""
     }
 
     private fun showImagePickerOptions() {
@@ -159,11 +185,11 @@ class UploadFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        view?.findViewById<EditText>(R.id.title)?.text?.clear()
-        view?.findViewById<EditText>(R.id.ingredients)?.text?.clear()
-        view?.findViewById<EditText>(R.id.instructions)?.text?.clear()
-        view?.findViewById<EditText>(R.id.description)?.text?.clear()
-        imageView.setImageResource(0)
+        name.text.clearSpans()
+        ingredients.text.clearSpans()
+        instructions.text.clearSpans()
+        description.text.clearSpans()
+        _binding = null
     }
 
     companion object {
