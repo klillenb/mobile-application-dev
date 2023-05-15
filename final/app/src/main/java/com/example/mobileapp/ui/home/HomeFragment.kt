@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.mobileapp.R
 import com.example.mobileapp.databinding.FragmentHomeBinding
 import com.example.mobileapp.model.SharedViewModel
@@ -20,6 +21,7 @@ import org.w3c.dom.Text
 import com.bumptech.glide.Glide
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.ui.recipes.RecipeDetailFragment
+import com.example.mobileapp.ui.recipes.RecipesFragmentDirections
 import kotlin.random.Random
 
 class HomeFragment : Fragment() {
@@ -58,7 +60,8 @@ class HomeFragment : Fragment() {
 
         //kodulehel pärva retsepti kuvamine
         homeViewModel.recipeList.observe(viewLifecycleOwner) {
-            val randomNr = Random.nextInt(0,it.size);
+
+            val randomNr = Random.nextInt(0,it.size)
             recipeOfTheDayText.text = it[randomNr].name
             val recipeObject = it[randomNr];
             println(it[randomNr])
@@ -72,7 +75,10 @@ class HomeFragment : Fragment() {
                     .into(recipeOfTheDayPic)
                 recipeOfTheDayPic.setOnClickListener(){
 
-                    showRecipeDetail(recipeObject)
+                    //showRecipeDetail(recipeObject)
+
+                    val action = RecipesFragmentDirections.actionNavigationRecipesToRecipeDetailFragment(argRecipeDetail = recipeObject)
+                    view?.findNavController()?.navigate(action)
                 }
             }
         }
@@ -86,6 +92,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showRecipeDetail(recipe: RecipeDto) {
+
         val recipeDetailFragment = RecipeDetailFragment.newInstance(recipe)
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)

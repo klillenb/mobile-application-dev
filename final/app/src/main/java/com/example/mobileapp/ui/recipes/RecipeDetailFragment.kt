@@ -56,7 +56,7 @@ class RecipeDetailFragment : Fragment() {
         _binding = null
     }
 
-/*    companion object {
+    companion object {
         fun newInstance(recipe: RecipeDto?): RecipeDetailFragment {
             val fragment = RecipeDetailFragment()
             val args = Bundle()
@@ -64,6 +64,6 @@ class RecipeDetailFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
-    }*/
+    }
 
 }
