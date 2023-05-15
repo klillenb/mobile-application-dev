@@ -15,7 +15,11 @@
         android:id="@+id/navigation_recipes"
         android:name="com.example.mobileapp.ui.recipes.RecipesFragment"
         android:label="@string/title_recipes"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes" >
+        <action
+            android:id="@+id/action_navigation_recipes_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_upload"
@@ -28,5 +32,13 @@
         android:name="com.example.mobileapp.ui.shopping.ShoppingFragment"
         android:label="@string/title_shopping"
         tools:layout="@layout/fragment_shopping" />
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.mobileapp.ui.recipes.RecipeDetailFragment"
+        android:label="RecipeDetailFragment" >
+        <argument
+            android:name="arg_recipe_detail"
+            app:argType="com.example.mobileapp.dto.RecipeDto" />
+    </fragment>
 
 </navigation>

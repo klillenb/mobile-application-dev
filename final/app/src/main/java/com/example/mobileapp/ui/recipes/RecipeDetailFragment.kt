@@ -15,6 +15,8 @@ class RecipeDetailFragment : Fragment() {
 
     private var _binding: FragmentRecipeDetailBinding? = null
     private val binding get() = _binding!!
+    private lateinit var recipe: RecipeDto
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,22 +26,26 @@ class RecipeDetailFragment : Fragment() {
         _binding = FragmentRecipeDetailBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val recipe = arguments?.getParcelable<RecipeDto>("recipe")
-
-        //set image
-        if(recipe?.image.isNullOrEmpty()) binding.imageviewRecipe.setImageResource(R.mipmap.ic_launcher)
-        else {
-            Glide.with(binding.imageviewRecipe.context)
-                .asBitmap()
-                .load(Base64.decode(recipe!!.image, Base64.DEFAULT))
-                .placeholder(R.mipmap.ic_launcher)
-                .into(binding.imageviewRecipe)
+        arguments?.let {
+            recipe = it.getParcelable("arg_recipe_detail")!!
         }
 
-        binding.textviewTitle.text = recipe?.name
-        binding.textviewIngredients.text = recipe?.ingredients?.joinToString("\n")
-        binding.textviewInstructions.text = recipe?.instructions
-        binding.textviewdescription.text = recipe?.description
+
+        //set image
+            if(recipe.image.isNullOrEmpty()) binding.imageviewRecipe.setImageResource(R.mipmap.ic_launcher)
+            else {
+                val image = recipe.image
+                Glide.with(binding.imageviewRecipe.context)
+                    .asBitmap()
+                    .load(Base64.decode(image, Base64.DEFAULT))
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(binding.imageviewRecipe)
+            }
+
+        binding.textviewTitle.text = recipe.name
+        binding.textviewIngredients.text = recipe.ingredients.joinToString("\n")
+        binding.textviewInstructions.text = recipe.instructions
+        binding.textviewdescription.text = recipe.description
 
         return view
     }
@@ -50,7 +56,7 @@ class RecipeDetailFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
+/*    companion object {
         fun newInstance(recipe: RecipeDto?): RecipeDetailFragment {
             val fragment = RecipeDetailFragment()
             val args = Bundle()
@@ -58,6 +64,6 @@ class RecipeDetailFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
-    }
+    }*/
 
 }
