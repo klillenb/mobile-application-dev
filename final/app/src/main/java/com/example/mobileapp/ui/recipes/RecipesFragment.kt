@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 //import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -38,34 +39,27 @@ class RecipesFragment : Fragment() {
         val recyclerView: RecyclerView = binding.recyclerViewRecipes
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
+        val progressBar: ProgressBar = binding.recipeProgressBar
+
+        homeViewModel.showProgress.observe(viewLifecycleOwner) {
+            progressBar.visibility = if(it) View.VISIBLE else View.GONE
+        }
+
         val recipeAdapter = RecipeAdapter()
-
-        /*val recipeAdapter = RecipeAdapter(){recipe ->
-            //val msg = getString(R.string.forecast_clicked_format, forecastItem.temp, forecastItem.description)
-            showRecipeDetail(recipe)
-            //showForecastDetails(forecast)
-        }*/
-
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener{
             override fun onItemClick(position: Int, view: View) {
-                //Toast.makeText(activity, "klikkisid kogu elemendile", Toast.LENGTH_SHORT).show()
                 val recipe = recipeAdapter.currentList[position]
-                //showRecipeDetail(recipe)
-                //recipeAdapter.notifyItemChanged(position)
-
                 val action = RecipesFragmentDirections.actionNavigationRecipesToRecipeDetailFragment(argRecipeDetail = recipe)
                 view.findNavController().navigate(action)
             }
 
             override fun onStarClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid tähele", Toast.LENGTH_SHORT).show()
                 homeViewModel.toggleFave(position)
                 recipeAdapter.notifyItemChanged(position)
             }
 
             override fun onCartClick(position: Int) {
-                //Toast.makeText(activity, "klikkisid kärule", Toast.LENGTH_SHORT).show()
                 homeViewModel.toggleAddToCart(position)
                 recipeAdapter.notifyItemChanged(position)
             }
@@ -86,11 +80,4 @@ class RecipesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-/*    private fun showRecipeDetail(recipe: RecipeDto) {
-        val recipeDetailFragment = RecipeDetailFragment.newInstance(recipe)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, recipeDetailFragment)
-            .addToBackStack(null)
-            .commit()
-    }*/
 }

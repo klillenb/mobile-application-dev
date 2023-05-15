@@ -11,4 +11,9 @@
     <string name="picture_item_recipe_list">Recipe image</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="title_upload">Upload Recipe</string>
+    <string name="title_recipe_details">Recipe Details</string>
+    <string name="home_heading">Recipe of the day</string>
+    <string name="recipe_detail_title">Recipe Title</string>
+    <string name="recipe_details_ingredients">Ingredients:</string>
+    <string name="recipe_details_instructions">Instructions:</string>
 </resources>

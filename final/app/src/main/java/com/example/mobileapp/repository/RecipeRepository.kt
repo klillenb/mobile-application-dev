@@ -12,8 +12,6 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-//https://chris-ribetti.medium.com/android-viewmodel-livedata-repository-and-di-complete-and-super-quick-5a7d78fa7946
-
 /**
  * Repository to contain request handling logic related to recipe data.
  * Also manages recipe saving / loading to / from sharedPreferences.
@@ -32,6 +30,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
     init {
         faveRecipes += loadData("fave_recipes", faveRecipes)
         recipesInCart += loadData("recipes_in_cart", recipesInCart)
+        showProgress.value = true
     }
 
     override val coroutineContext: CoroutineContext
@@ -40,7 +39,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
     fun getRecipes(context: Context) {
         launch {
             try {
-                showProgress.postValue(true)
+                showProgress.value = true
                 val result = withContext(Dispatchers.IO) {
                     RecipeApi.retrofitService.getRecipes()
                 }
