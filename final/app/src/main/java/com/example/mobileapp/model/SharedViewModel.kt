@@ -37,8 +37,11 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         _repository.toggleFave(recipeList.value!![pos])
     }
 
-    fun toggleAddToCart(pos: Int) {
-        _repository.toggleAddToCart(recipeList.value!![pos])
+    fun toggleAddToCart(pos: Int, removeFromCart: Boolean = false) {
+        _repository.toggleAddToCart(
+            recipeList.value!![pos],
+            removeFromCart
+        )
     }
 
     //recipes

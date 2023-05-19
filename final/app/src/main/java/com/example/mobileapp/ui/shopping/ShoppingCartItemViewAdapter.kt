@@ -12,7 +12,8 @@ import com.example.mobileapp.dto.ShoppingCartDto
  * Responsible for generating shopping list display
  */
 class ShoppingCartItemViewAdapter(
-    private val items: MutableList<ShoppingCartDto>
+    private val items: MutableList<ShoppingCartDto>,
+    private val removeFromShoppingList: (pos: Int) -> Unit
     ): RecyclerView.Adapter<ShoppingCartItemViewAdapter.ShoppingCartViewHolder>() {
 
     class ShoppingCartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -43,15 +44,18 @@ class ShoppingCartItemViewAdapter(
 
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
         val item: ShoppingCartDto = items[position]
-        holder.textView.text = "${item.name} $position"
+        holder.textView.text = item.name
         holder.checkBox.isChecked = item.done
         holder.checkBox.setOnCheckedChangeListener {
             // Lambda function!
-            button: CompoundButton, checked: Boolean ->
+            _: CompoundButton, checked: Boolean ->
                 items[position].done = checked
+                removeFromShoppingList(position)
+                notifyItemChanged(position)
         }
         holder.button.setOnClickListener {
             items.removeAt(position)
+            removeFromShoppingList(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, items.size)
         }

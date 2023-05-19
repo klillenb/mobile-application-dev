@@ -119,8 +119,10 @@ class RecipeRepository(context: Context) : CoroutineScope {
         saveData("fave_recipes", faveRecipes)
     }
 
-    fun toggleAddToCart(recipe: RecipeDto){
-        _recipes.value?.find { it._id == recipe._id}?.inCart = !recipe.inCart
+    fun toggleAddToCart(recipe: RecipeDto, removeFromCart: Boolean = false) {
+        _recipes.value?.find {
+            it._id == recipe._id
+        }!!.inCart = if (removeFromCart) false else (!recipe.inCart)
         this._recipes.postValue(_recipes.value)
 
         if (recipe.inCart){
