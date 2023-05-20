@@ -5,25 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.databinding.FragmentShoppingBinding
-import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.dto.ShoppingCartDto
 import com.example.mobileapp.model.SharedViewModel
 
 class ShoppingFragment : Fragment() {
 
     private var _binding: FragmentShoppingBinding? = null
-
     private val binding get() = _binding!!
-
-    private lateinit var shoppingCartItemViewAdapter: ShoppingCartItemViewAdapter
-    private lateinit var items: MutableList<ShoppingCartDto>
-
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,48 +26,32 @@ class ShoppingFragment : Fragment() {
         _binding = FragmentShoppingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val viewModel = ViewModelProvider(this)[sharedViewModel::class.java]
+        //val viewModel = ViewModelProvider(this)[sharedViewModel::class.java]
+        val viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        val removeFromShoppingCart: (pos: Int) -> Unit = fun(pos: Int) {
-            viewModel.toggleAddToCart(pos, true)
-        }
 
-        items = mutableListOf()
-
-        viewModel.recipeList.value?.forEach {
-            recipe: RecipeDto ->
-                if (recipe.inCart) {
-                    val index: Int = viewModel.recipeList.value?.indexOf(recipe)!!
-                    recipe.ingredients.forEach {
-                        ingredient: String ->
-                            items.add(ShoppingCartDto(
-                                ingredient,
-                                index
-                            ))
-                    }
-                }
-        }
-
-        shoppingCartItemViewAdapter = ShoppingCartItemViewAdapter(
-            items,
-            removeFromShoppingCart
+        val shoppingCartItemViewAdapter = ShoppingCartItemViewAdapter(
+            viewModel
         )
+        //viewModel.setShoppingCartItemAdapter(shoppingCartItemViewAdapter)
+
         val recyclerView: RecyclerView = binding.recyclerViewShopping
         recyclerView.adapter = shoppingCartItemViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        val shoppingCartObserver = Observer<List<ShoppingCartDto>>{ shoppingCartItem ->
+            shoppingCartItemViewAdapter.submitList(shoppingCartItem)
+        }
+        viewModel.shoppingCartItems.observe(viewLifecycleOwner, shoppingCartObserver)
+
         binding.buttonShoppingComplete.setOnClickListener {
-            shoppingCartItemViewAdapter.completeAllItems()
-            items.forEach {
-                removeFromShoppingCart(it.recipeIndex)
-            }
+            viewModel.completeAllItems()
+            viewModel.shoppingCartItems.value?.let { it1 -> shoppingCartItemViewAdapter.notifyItemRangeChanged(0, it1.size) }
         }
 
         binding.buttonShoppingDelete.setOnClickListener {
-            shoppingCartItemViewAdapter.deleteDoneItems()
-            items.forEach {
-                removeFromShoppingCart(it.recipeIndex)
-            }
+            viewModel.deleteDoneItems()
+            //viewModel.shoppingCartItems.value?.let { it1 -> shoppingCartItemViewAdapter.notifyItemRangeChanged(0, it1.size) }
         }
 
         return root

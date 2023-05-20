@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import com.example.mobileapp.dto.RecipeDto
 import com.example.mobileapp.repository.RecipeRepository
 import com.example.mobileapp.dto.FoodQuoteDto
+import com.example.mobileapp.dto.ShoppingCartDto
 import com.example.mobileapp.network.RecipeApi
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
 
     private val _quote = MutableLiveData<FoodQuoteDto>()
     val quote: LiveData<FoodQuoteDto> = _quote
+    val shoppingCartItems: LiveData<List<ShoppingCartDto>> = _repository.shoppingCartItems
 
     init {
         getFoodQuote()
@@ -42,12 +44,13 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
             recipeList.value!![pos],
             removeFromCart
         )
+        //updateShoppingCartItems(shoppingCartItems.value!!)
     }
 
     //recipes
     fun getData() { _repository.getRecipes(context) }
     fun saveData(recipeDto: RecipeDto) { _repository.addRecipe(context, recipeDto) }
-    fun removeData(recipeDto: RecipeDto) { _repository.removeRecipe(context, recipeDto) }
+    //fun removeData(recipeDto: RecipeDto) { _repository.removeRecipe(context, recipeDto) }
 
     //quotes
     private fun getFoodQuote() {
@@ -67,5 +70,22 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
                 if(quote.isInitialized) showProgress.postValue(false)
             }
         }
+    }
+
+    fun removeIngredientFromShoppingCart(shoppingCartItem: ShoppingCartDto){
+        //_repository.toggleAddToCart(shoppingCartItem, true)
+        _repository.removeIngredientsFromShoppingCart(shoppingCartItem)
+    }
+
+    fun completeAllItems() {
+        _repository.completeAllItems()
+    }
+
+    fun deleteDoneItems() {
+        _repository.deleteDoneItems()
+    }
+
+    fun markChecked(item: ShoppingCartDto, checked: Boolean) {
+        _repository.markChecked(item, checked)
     }
 }

@@ -6,25 +6,37 @@ import com.example.mobileapp.R
 import android.view.ViewGroup
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.example.mobileapp.dto.ShoppingCartDto
+import com.example.mobileapp.model.SharedViewModel
 
 /**
  * Responsible for generating shopping list display
  */
+
+class ShoppingCartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    val checkBox: CheckBox = itemView.findViewById(R.id.checkBox_shopping_item)
+    val textView: TextView = itemView.findViewById(R.id.textView_shopping_item)
+    val button: ImageButton = itemView.findViewById(R.id.button_shopping_item)
+
+}
 class ShoppingCartItemViewAdapter(
-    private val items: MutableList<ShoppingCartDto>,
-    private val removeFromShoppingList: (pos: Int) -> Unit
-    ): RecyclerView.Adapter<ShoppingCartItemViewAdapter.ShoppingCartViewHolder>() {
+    private val viewModel: SharedViewModel
+    ): ListAdapter<ShoppingCartDto, ShoppingCartViewHolder>(DIFF_CONFIG) {
 
-    class ShoppingCartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val checkBox: CheckBox
-        val textView: TextView
-        val button: ImageButton
+    companion object{
+        val DIFF_CONFIG = object : DiffUtil.ItemCallback<ShoppingCartDto>(){
+            override fun areItemsTheSame(oldItem: ShoppingCartDto, newItem: ShoppingCartDto): Boolean {
+                return oldItem === newItem
+            }
 
-        init {
-            checkBox = itemView.findViewById(R.id.checkBox_shopping_item)
-            textView = itemView.findViewById(R.id.textView_shopping_item)
-            button = itemView.findViewById(R.id.button_shopping_item)
+            override fun areContentsTheSame(
+                oldItem: ShoppingCartDto,
+                newItem: ShoppingCartDto
+            ): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 
@@ -37,44 +49,29 @@ class ShoppingCartItemViewAdapter(
             )
         )
     }
-
-    override fun getItemCount(): Int {
-        return items.size
-    }
+//  override fun getItemCount(): Int {
+//        return viewModel.shoppingCartItems.value?.size ?: 0
+//    }
+//
 
     override fun onBindViewHolder(holder: ShoppingCartViewHolder, position: Int) {
-        val item: ShoppingCartDto = items[position]
+        val item: ShoppingCartDto = viewModel.shoppingCartItems.value!![position]
         holder.textView.text = item.name
         holder.checkBox.isChecked = item.done
         holder.checkBox.setOnCheckedChangeListener {
-            // Lambda function!
             _: CompoundButton, checked: Boolean ->
-                items[position].done = checked
-                removeFromShoppingList(position)
-                notifyItemChanged(position)
+                //items[position].done = checked
+                viewModel.markChecked(item, checked)
+                //viewModel.removeFromShoppingCart(position)
+                //notifyItemChanged(position)
         }
         holder.button.setOnClickListener {
-            items.removeAt(position)
-            removeFromShoppingList(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, items.size)
+            //items.removeAt(position)
+            //val recipe = viewModel.recipeList?.value.find { it._id == item.recipeId }
+            viewModel.removeIngredientFromShoppingCart(item)
+            //notifyItemRemoved(position)
+            //notifyItemRangeChanged(position, items.size)
         }
-    }
-
-    fun completeAllItems() {
-        items.forEach {
-            item: ShoppingCartDto ->
-                item.done = true
-        }
-        notifyItemRangeChanged(0, items.size)
-    }
-
-    fun deleteDoneItems() {
-        items.removeIf {
-            item: ShoppingCartDto ->
-                item.done
-        }
-        notifyDataSetChanged()
     }
 }
 
