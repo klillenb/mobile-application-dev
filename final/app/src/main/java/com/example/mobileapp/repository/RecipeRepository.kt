@@ -2,7 +2,7 @@ package com.example.mobileapp.repository
 
 
 import android.content.Context
-import android.util.Log
+
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -154,12 +154,12 @@ class RecipeRepository(context: Context) : CoroutineScope {
                     val currentList = _shoppingCartItems.value?.toMutableList()
                     currentList?.remove(item)
                     _shoppingCartItems.value = currentList!!
-                    Log.d("RECIPE", "Kustutati koostisosa $item list sai ${_shoppingCartItems.value}")
+                    //Log.d("RECIPE", "Kustutati koostisosa $item list sai ${_shoppingCartItems.value}")
                 }
             }
         }
         saveData("recipes_in_cart", recipesInCart)
-        Log.d("RECIPE", "Retseptid ostukärus $recipesInCart")
+        //Log.d("RECIPE", "Retseptid ostukärus $recipesInCart")
     }
 
     //SharedPreference'isse salvestamine ja sealt lugemine andmete seriliseerimise abil
@@ -186,7 +186,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
     }
 
     private fun addIngredientsToShoppingCart(recipe: RecipeDto){
-        Log.d("RECIPE", "Hakkan lisama koostisosi ${_shoppingCartItems.value}")
+        //Log.d("RECIPE", "Hakkan lisama koostisosi ${_shoppingCartItems.value}")
         recipe.ingredients.forEach {
                 ingredient: String ->
             val item = ShoppingCartDto(
@@ -198,7 +198,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
             _shoppingCartItems.value = currentList
 
         }
-        Log.d("RECIPE", "Lisatud koostisosad ${_shoppingCartItems.value}")
+        //Log.d("RECIPE", "Lisatud koostisosad ${_shoppingCartItems.value}")
     }
 
     fun removeIngredientsFromShoppingCart(shoppingCartItem: ShoppingCartDto){
@@ -207,7 +207,7 @@ class RecipeRepository(context: Context) : CoroutineScope {
         val currentList = _shoppingCartItems.value?.toMutableList()
         currentList?.remove(shoppingCartItem)
         _shoppingCartItems.value = currentList!!
-        Log.d("RECIPE", "Kustutati retsept $shoppingCartItem list sai ${_shoppingCartItems.value}")
+        //Log.d("RECIPE", "Kustutati retsept $shoppingCartItem list sai ${_shoppingCartItems.value}")
 
         val recipe = recipes.value?.find { it._id == shoppingCartItem.recipeId }
         //eemaldab retsepti kärust
@@ -251,6 +251,6 @@ class RecipeRepository(context: Context) : CoroutineScope {
         _shoppingCartItems.value?.forEach { item ->
             item.done = true
         }
-        Log.d("RECIPE", "${shoppingCartItems.value}")
+        //Log.d("RECIPE", "${shoppingCartItems.value}")
     }
 }
