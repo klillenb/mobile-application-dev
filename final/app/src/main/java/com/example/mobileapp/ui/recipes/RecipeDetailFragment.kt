@@ -50,20 +50,8 @@ class RecipeDetailFragment : Fragment() {
         return view
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        fun newInstance(recipe: RecipeDto?): RecipeDetailFragment {
-            val fragment = RecipeDetailFragment()
-            val args = Bundle()
-            args.putParcelable("recipe", recipe)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
 }

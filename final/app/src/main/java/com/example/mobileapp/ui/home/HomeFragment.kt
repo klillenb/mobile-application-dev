@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel = ViewModelProvider(this)[sharedViewModel::class.java]
+        val homeViewModel = ViewModelProvider(requireActivity())[sharedViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
             val randomNr = Random.nextInt(0,it.size)
             recipeOfTheDayText.text = it[randomNr].name
             val recipeObject = it[randomNr]
-            println(it[randomNr])
+            //println(it[randomNr])
             if(it[randomNr].image.isNullOrEmpty()) recipeOfTheDayPic.setImageResource(R.mipmap.ic_launcher)
             else {
                 val image = it[randomNr].image
