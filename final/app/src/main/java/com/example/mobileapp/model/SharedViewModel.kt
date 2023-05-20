@@ -42,6 +42,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
             recipeList.value!![pos],
             removeFromCart
         )
+        //updateShoppingCartItems(shoppingCartItems.value!!)
     }
 
     //recipes

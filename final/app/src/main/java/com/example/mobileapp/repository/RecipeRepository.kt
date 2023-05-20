@@ -253,4 +253,81 @@ class RecipeRepository(context: Context) : CoroutineScope {
         }
         //Log.d("RECIPE", "${shoppingCartItems.value}")
     }
+
+    private fun getShoppingCartItems(){
+        for (recipe: RecipeDto in recipes.value!!) {
+            if (recipe.inCart) {
+                    addIngredientsToShoppingCart(recipe)
+            }
+        }
+    }
+
+    private fun addIngredientsToShoppingCart(recipe: RecipeDto){
+        Log.d("RECIPE", "Hakkan lisama koostisosi ${_shoppingCartItems.value}")
+        recipe.ingredients.forEach {
+                ingredient: String ->
+            val item = ShoppingCartDto(
+                ingredient,
+                recipe._id!!
+            )
+            val currentList: MutableList<ShoppingCartDto> = _shoppingCartItems.value?.toMutableList() ?: mutableListOf()
+            currentList.add(item)
+            _shoppingCartItems.value = currentList
+
+        }
+        Log.d("RECIPE", "Lisatud koostisosad ${_shoppingCartItems.value}")
+    }
+
+    fun removeIngredientsFromShoppingCart(shoppingCartItem: ShoppingCartDto){
+
+        //eemaldab üksiku koostisosa kärust
+        val currentList = _shoppingCartItems.value?.toMutableList()
+        currentList?.remove(shoppingCartItem)
+        _shoppingCartItems.value = currentList!!
+        Log.d("RECIPE", "Kustutati retsept $shoppingCartItem list sai ${_shoppingCartItems.value}")
+
+        val recipe = recipes.value?.find { it._id == shoppingCartItem.recipeId }
+        //eemaldab retsepti kärust
+        recipesInCart.remove(recipe?._id)
+
+        //muudab retsepti välja
+        if(recipe != null && recipe.inCart){
+            _recipes.value?.find {
+                it._id == shoppingCartItem.recipeId
+            }!!.inCart = false
+        }
+        //this._recipes.postValue(_recipes.value)
+    }
+
+    fun markChecked(item: ShoppingCartDto, checked: Boolean) {
+        _shoppingCartItems.value?.find { it == item }?.done = checked
+        //Log.d("RECIPE", "Koostisosad ${_shoppingCartItems.value}")
+    }
+
+    fun deleteDoneItems() {
+        // kui item.done, siis eemaldada ostukärust ja retseptidest
+        for( shoppingCartItem in _shoppingCartItems.value!!){
+            if(shoppingCartItem.done){
+                val currentList = _shoppingCartItems.value?.toMutableList()
+                currentList?.remove(shoppingCartItem)
+                _shoppingCartItems.value = currentList!!
+                val recipe = recipes.value?.find { it._id == shoppingCartItem.recipeId }
+                if(recipe != null && recipe.inCart){
+                    //muudab retsepti välja
+                    _recipes.value?.find {
+                        it._id == recipe._id
+                    }!!.inCart = false
+                    //eemaldab retsepti kärust
+                    recipesInCart.remove(recipe._id)
+                }
+            }
+        }
+    }
+
+    fun completeAllItems() {
+        _shoppingCartItems.value?.forEach { item ->
+            item.done = true
+        }
+        Log.d("RECIPE", "${shoppingCartItems.value}")
+    }
 }
