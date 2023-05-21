@@ -83,15 +83,14 @@ Retseptile vajutades avaneb detailne vaade.
 Vajutades retsepti loendi lehekülje alt mõnele huvi pakkuvale retseptile, navigeeritakse sind selle retsepti detailsemale vaatele.
 Seal on näha valitud retsepti pealkiri, pilt, koostisosad, valmistamise juhend ja retsepti kirjeldus.
 
-
-
 ## Retsepti lisamine
 
 Retsepti lisamise lehel kuvatakse “select image” nupp, mille kaudu saad valida olemasoleva pildi galeriist või teha kaamera kaudu uue pildi. Valitud pilt kuvatakse suurelt lehe ülaosas. Allpool saad lisada oma retsepti pealkirja, koostisosad, valmistamise juhendi ja retsepti kirjelduse. Kui vajalikud väljad on täidetud, saad retsepti salvestada.
 
-
-
 ## Ostukäru
+
+Retseptiloendi lehel saab panna retsepti ostukärru. See tähendab seda, et retsepti eri koostisosad näidatakse _to-do_ nimekirja stiilis ostukäru lehel. Koostisosa kustutades või ostetuks märkides eemaldatakse retsept ostukärust. Lisaks on ostukäru lehel ka nupud kõik koostisosad hangituks märkida ning hangitud koostisosad kustutada.
+
 
 ## Teegid
  * Moshi: Teek, mis aitab JSON formaati Java või Kotlini objektideks muuta.
